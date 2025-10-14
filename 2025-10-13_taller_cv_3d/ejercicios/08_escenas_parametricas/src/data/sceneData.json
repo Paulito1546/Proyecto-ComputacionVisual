@@ -1,0 +1,67 @@
+{
+  "objects": [
+    {
+      "id": 1,
+      "type": "box",
+      "position": [0, 0, 0],
+      "scale": [1, 1, 1],
+      "color": "#ff6b6b"
+    },
+    {
+      "id": 2,
+      "type": "sphere",
+      "position": [3, 0, 0],
+      "scale": [1, 1, 1],
+      "color": "#4ecdc4"
+    },
+    {
+      "id": 3,
+      "type": "cone",
+      "position": [-3, 0, 0],
+      "scale": [1, 1, 1],
+      "color": "#ffe66d"
+    },
+    {
+      "id": 4,
+      "type": "cylinder",
+      "position": [0, 0, 3],
+      "scale": [1, 1, 1],
+      "color": "#a8e6cf"
+    },
+    {
+      "id": 5,
+      "type": "torus",
+      "position": [0, 0, -3],
+      "scale": [1, 1, 1],
+      "color": "#ff8b94"
+    },
+    {
+      "id": 6,
+      "type": "octahedron",
+      "position": [3, 0, 3],
+      "scale": [1, 1, 1],
+      "color": "#c7ceea"
+    },
+    {
+      "id": 7,
+      "type": "tetrahedron",
+      "position": [-3, 0, 3],
+      "scale": [1, 1, 1],
+      "color": "#ffdac1"
+    },
+    {
+      "id": 8,
+      "type": "dodecahedron",
+      "position": [3, 0, -3],
+      "scale": [1, 1, 1],
+      "color": "#b5ead7"
+    },
+    {
+      "id": 9,
+      "type": "box",
+      "position": [-3, 0, -3],
+      "scale": [1, 1, 1],
+      "color": "#ffc6ff"
+    }
+  ]
+}

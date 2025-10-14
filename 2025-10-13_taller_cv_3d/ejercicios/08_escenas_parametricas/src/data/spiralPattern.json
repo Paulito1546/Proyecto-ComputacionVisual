@@ -1,0 +1,15 @@
+{
+  "pattern": "spiral",
+  "count": 20,
+  "radius": 5,
+  "height": 8,
+  "rotations": 2,
+  "objects": [
+    {
+      "type": "box",
+      "baseScale": 0.3,
+      "colorStart": "#f093fb",
+      "colorEnd": "#f5576c"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "pattern": "grid",
+  "gridSize": 5,
+  "spacing": 2,
+  "objects": [
+    {
+      "type": "sphere",
+      "baseScale": 0.5,
+      "color": "#667eea"
+    }
+  ]
+}
