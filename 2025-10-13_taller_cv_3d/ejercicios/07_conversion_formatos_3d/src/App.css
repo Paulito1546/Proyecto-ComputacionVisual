@@ -1,0 +1,327 @@
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+/* Loader styles */
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+/* Controls Panel */
+.controls-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  z-index: 100;
+  min-width: 280px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.controls-panel h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  color: #88aacc;
+  border-bottom: 2px solid #88aacc;
+  padding-bottom: 8px;
+}
+
+.format-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.format-btn {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #555;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.format-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #777;
+}
+
+.format-btn.active {
+  background: #88aacc;
+  border-color: #88aacc;
+  color: #000;
+}
+
+.control-item {
+  margin: 12px 0;
+}
+
+.control-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  gap: 8px;
+}
+
+.control-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.table-btn {
+  width: 100%;
+  padding: 12px;
+  background: #88aacc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 10px;
+  transition: transform 0.2s ease;
+}
+
+.table-btn:hover {
+  transform: translateY(-2px);
+  background: #99bbcc;
+}
+
+.hint-text {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.hint-text p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* HUD Stats */
+.hud {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 15px 20px;
+  border-radius: 12px;
+  color: white;
+  z-index: 100;
+  min-width: 250px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hud h3 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #88aacc;
+  border-bottom: 2px solid #88aacc;
+  padding-bottom: 5px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: #aaa;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: #88aacc;
+}
+
+/* Comparison Table */
+.comparison-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.comparison-content {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 95%;
+  max-height: 90%;
+  overflow: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+
+.comparison-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.comparison-content::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 5px;
+}
+
+.comparison-content::-webkit-scrollbar-thumb {
+  background: #88aacc;
+  border-radius: 5px;
+}
+
+.comparison-content::-webkit-scrollbar-thumb:hover {
+  background: #6688aa;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.comparison-content h2 {
+  color: #88aacc;
+  margin: 0 0 20px 0;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #555;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: #ff4444;
+  border-color: #ff4444;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.comparison-table th {
+  background: rgba(120, 150, 180, 0.2);
+  color: #88aacc;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.comparison-table td:first-child {
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.comparison-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table td {
+  color: #ccc;
+}
+
+.format-column {
+  font-weight: bold;
+  color: #88aacc;
+}
+
+.pro {
+  color: #99cc99;
+}
+
+.con {
+  color: #cc9999;
+}
+
+/* Title */
+.title {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  z-index: 100;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #88aacc;
+}
+
+.title p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #aaa;
+}
