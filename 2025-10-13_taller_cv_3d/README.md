@@ -17,21 +17,26 @@ La meta es alcanzar a entender la metodologia de estos temas, como se pueden rel
 
 # Ejercicios realizados
 1. JERARQUIAS TRANSFORMACIONES
+
 **Explicación**
 Se creó una escena 3D usando React Three Fiber que muestra una jerarquía de objetos: un objeto padre que contiene un hijo y un nieto.
 Se implemetó controles independientes usando la librería dat.GUI para rotar cada nivel (padre, hijo y nieto) y observar cómo las rotaciones se comportan en la jerarquía, lo que permite entender la herencia y composición de transformaciones en gráficos 3D.
 Se decidió reorganizar los objetos para que el pequeño nieto (un cono azul) tenga una rotación visible clara, separándolo de otros hijos, y traducir toda la interfaz al español para facilitar el entendimiento.
 
 **GIFS**
+
 ![Gif animado](gifs\ejercicio_1.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\01_jerarquias_transformaciones)
+
+[Ejercicio 1](ejercicios/01_jerarquias_transformaciones)
 
 **Prompts utilizados**
+
 Ninguno, el código fue escrito manualmente y guiado por la lógica de React y React Three Fiber para creación de jerarquías visuales.
 
 **Comentarios personales**
+
 - Aprendizaje: Este ejercicio me permitió comprender en profundidad cómo funcionan las transformaciones jerárquicas en Three.js/React Three Fiber, y cómo controlar visualmente cada elemento con dat.GUI.
 - Retos: Configurar el entorno de desarrollo y resolver problemas con la versión de Node.js para hacer funcionar Vite. También entender la correcta configuración de las rotaciones independientes.
 - Mejoras futuras: Agregar animaciones automáticas, crear más niveles de jerarquía, y experimentar con otras propiedades (escala, posición, materiales dinámicos). Mejorar la interfaz de usuario para hacerla más intuitiva.
@@ -39,7 +44,9 @@ Ninguno, el código fue escrito manualmente y guiado por la lógica de React y R
 ---
 
 2. OJOS DIGITALES
+
 **Explicación**
+
 El programa se generó de tal manera que fuera cómodo e intuitivo, la distribución de las ventanas y demás configuraciones visuales buscan que sea fácil diferenciar las diferencias entre el video (webcam) base y el filtro o filtros aplicados.
 Se implemento el ejercicio mediante las siguientes etapas:
 - Investigación de funcionalidades de OpenCv para generación de filtros y manejo de trackbars.
@@ -48,6 +55,7 @@ Se implemento el ejercicio mediante las siguientes etapas:
 - Integración de menú en Tkinter con funciones de generación de filtros.
 
 **GIFS**
+
 Todos los filtros aplicados (HSV filtrando color amarillo):
 ![Todos los filtros](gifs/allFilters.gif)
 
@@ -70,14 +78,17 @@ Interfaz gráfica:
 ![Interfaz gráfica](ejercicios\02_ojos_digitales_opencv\gifs\interface.png)
 
 **Link del codigo**
-[Ejercicio 2](ejercicios\02_ojos_digitales_opencv)
+
+[Ejercicio 2](ejercicios/02_ojos_digitales_opencv)
 
 **Prompts utilizados**
+
 - Genera un código de ejemplo aplicando filtros de blur/sharpen, laplaciano, sobel X/Y, explica cada paso.
 - Cuéntame sobre librerías para interfaces gráficas en Python que sean útiles para generar menús.
 - Cuéntame sobre funcionalidades básicas de Tkinter.
 
 **Comentarios personales**
+
 En este taller se aprendió a aplicar distintos tipos de filtros a imágenes y videos, manejar la webcam por medio dee OpenCv en Python y generar interfaces gráficas para la muestra de distintas funcionalidades.
 
 En los próximos proyectos se mejorará el manejo del tiempo y se intentará generar una interfaz gráfica más cómoda y personalizada, que permita interactuar mejor con las funcionalidades aplicadas en el código.
@@ -85,10 +96,13 @@ En los próximos proyectos se mejorará el manejo del tiempo y se intentará gen
 ---
 
 3. SEGMENTACIÓN UMBRAL CONTORNOS
+
 **Explicación**
+
 En este ejercicio se implementó la segmentación de una imagen utilizando técnicas de umbralización fija y adaptativa. El objetivo fue detectar las formas presentes (esferas) mediante la detección de contornos en la imagen binarizada. Se calculó las propiedades geométricas claves: centroide (usando momentos), área y perímetro de cada contorno. Además, se realizó una clasificación básica por número de vértices para aproximar la forma de cada contorno. Se descartaron contornos excesivamente grandes (como bordes de la imagen) para evitar falsos positivos.
 
 **GIFS**
+
 El GIF generado muestra secuencialmente:
 - La imagen original en escala de grises,
 - La imagen con umbral fijo invertido,
@@ -97,12 +111,15 @@ El GIF generado muestra secuencialmente:
 ![Gif animado](gifs\resultado.gif)
 
 **Link del codigo**
-[Ejercicio 3](ejercicios\03_segmentacion_umbral_contornos)
+
+[Ejercicio 3](ejercicios/03_segmentacion_umbral_contornos)
 
 **Prompts utilizados**
+
 No se utilizaron prompts automáticamente; el desarrollo fue realizado manualmente con conocimiento de OpenCV y procesamiento de imágenes.
 
 **Comentarios personales**
+
 - Aprendizaje: Comprender cómo aplicar umbralización fija y adaptativa, junto con detección y análisis de contornos usando OpenCV.
 - Retos: Ajustar correctamente los parámetros de umbral para diferentes condiciones de imagen y filtrar los contornos no deseados.
 - Mejoras futuras: Integrar un sistema de clasificación de formas más avanzado, implementación de más técnicas de filtrado de ruido y ampliación para trabajar con imágenes en color.
@@ -110,19 +127,25 @@ No se utilizaron prompts automáticamente; el desarrollo fue realizado manualmen
 ---
 
 4. IMAGEN MATRIZ PIXELES
+
 **Explicación**
+
 En este ejercicio se trabajó directamente sobre los píxeles y regiones de una imagen usando Python con OpenCV y NumPy. Se seleccionó una zona específica, se coloreó de rojo puro, y se copió en otra parte de la imagen para demostrar la manipulación básica por regiones. Posteriormente, se realizaron ajustes de brillo y contraste con una interfaz interactiva. Para analizar los efectos de cada manipulación, se calcularon y mostraron los histogramas globales y por región (antes y después de las modificaciones), utilizando tanto el canal de luminosidad (V en HSV) como el canal rojo (R en BGR). Este análisis evidencia cómo las transformaciones afectan la distribución de los valores de los píxeles de la imagen.
 
 **GIFS**
+
 ![Gif animado](gifs\ejercicio_4_1.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\04_imagen_matriz_pixeles)
+
+[Ejercicio 4](ejercicios/04_imagen_matriz_pixeles)
 
 **Prompts utilizados**
+
 No se emplearon prompts automáticos. Todo el código y los assets fueron desarrollados manualmente, siguiendo las consignas y ajustando cada paso para observar su efecto en los histogramas.
 
 **Comentarios personales**
+
 - Aprendizaje: Aprender a manipular directamente los píxeles y regiones de una imagen y a analizar los efectos en los histogramas globales y locales.
 - Retos: Entender cómo calcular los histogramas por regiones específicas y adaptar el código para incluir ambos tipos (global y por región). Integrar el sistema de copia y pegado para asegurar cambios visuales detectables.
 - Mejoras futuras: Agregar análisis automatizado sobre más regiones; implementar sliders para ver los histogramas en tiempo real; y crear una visualización que compare directamente la evolución del histograma en cada paso del procesamiento.
@@ -130,22 +153,28 @@ No se emplearon prompts automáticos. Todo el código y los assets fueron desarr
 ---
 
 6. ANALISIS FIGURAS GEOMETRICAS
+
 **Explicación**
+
 Se realizó el cargue, la binarización y se limpio el fondo mediante threshold a una imagen para poder aplicar y extraer diferentes caracteristicas de esta.
 - Se extrajo los contornos de la figura principal de la imagen. Estos fueron delineados con rojo
 - Se valido el área y el perímetro del contorno con mayor área
 - Se calculo el centroide de área de mayor tamaño
 
 **GIFS**
+
 ![Gif animado](gifs\ejercicio_6.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\06_analisis_figuraas_geometricas)
+
+[Ejercicio 6](ejercicios/06_analisis_figuraas_geometricas)
 
 **Prompts utilizados**
+
 No se utilizaron. El codigo se realizo mediante aprendizaje y busqueda de tutoriales.
 
 **Comentarios personales**
+
 - Aprendizaje: Utilización del contorno de los objetos de una imagen para su estudio y análisis.
 - Retos: Poder entender y aplicar los comandos para la extracciónd de los contornos de la imagen
 - Mejoras futuras: automatizar para analizar frame a frame el contorno variable de un video 
@@ -153,12 +182,15 @@ No se utilizaron. El codigo se realizo mediante aprendizaje y busqueda de tutori
 ---
 
 7. CONVERSIÓN FORMATOS 3D
+
 **Explicación**
+
 Se desarrolló una aplicación web interactiva que compara tres formatos 3D (OBJ, STL, GLTF) para entender sus diferencias técnicas y visuales. Se utilizó Three.js con React porque permite cargar múltiples formatos y renderizarlos con WebGL. Se incluyó un script Python con trimesh para generar los modelos y garantizar que todos tengan la misma geometría base.
 
 El proyecto permite alternar entre formatos, activar wireframe, y ver estadísticas en tiempo real. La idea era demostrar que aunque la geometría sea idéntica, cada formato maneja colores, materiales y compresión de forma diferente.
 
 **GIFS**
+
 Selector de Formatos
 ![Gif animado](gifs\formatos.gif)
 
@@ -166,9 +198,11 @@ Modo Wireframe
 ![Gif animado](gifs\wireframe.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\07_conversion_formatos_3d)
+
+[Ejercicio 7](ejercicios/07_conversion_formatos_3d)
 
 **Prompts utilizados**
+
 Para implementación:
 - "Cómo se cargan diferentes formatos 3D en Three.js usando React?"
 - "Cómo aplicar materiales wireframe a objetos cargados desde archivos externos?"
@@ -185,6 +219,7 @@ Para optimización:
 Los modelos 3D se generaron programáticamente sin IA, solo primitivas geométricas de trimesh (icosphere, cylinder, torus).
 
 **Comentarios personales**
+
 Aprendizaje:
 - Los formatos 3D no son simplemente "archivos diferentes", cada uno fue diseñado con un propósito específico en mente.
 - GLTF maneja compresión binaria de forma eficiente, lo cual explica por qué se ha convertido en el estándar para aplicaciones web.
@@ -202,7 +237,9 @@ Mejoras Futuras
 ---
 
 8. ESCENAS PARAMETRICAS
+
 **Explicación**
+
 Este ejercicio implementa generación de geometría 3D a partir de datos estructurados en JSON usando Three.js con React Three Fiber. La meta es mapear arrays de objetos JavaScript a componentes `<mesh>` parametrizando posición, escala y color directamente desde archivos de datos. Se implementaron tres escenas diferentes: una con objetos variados posicionados manualmente, un patrón de grilla generado proceduralmente, y una espiral 3D con gradiente de color. Se incluyeron controles GUI con Leva para modificar parámetros en tiempo real y exportar las configuraciones.
 
 Escena 1: Objetos desde JSON
@@ -222,6 +259,7 @@ Se implementó controles para cambiar entre escenas, ajustar escala global, anim
 Se usó useControls de Leva para crear sliders, selectores y botones. El control de distancia de cámara lo hice funcional con un componente CameraController que actualiza la posición usando useThree().
 
 **GIFS**
+
 Escena 1
 ![Gif animado](gifs\escena_1.gif)
 
@@ -235,9 +273,11 @@ GUI interactivo
 ![Gif animado](gifs\controles.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\08_escenas_parametricas)
+
+[Ejercicio 8](ejercicios/08_escenas_parametricas)
 
 **Prompts utilizados**
+
 - "Crea un proyecto React con Vite que use Three.js y React Three Fiber para renderizar escenas 3D"
 - "Cómo generar una grilla NxN de objetos 3D en el plano XZ usando bucles en React Three Fiber"
 - "Algoritmo para distribuir objetos en forma de espiral 3D usando trigonometría (seno y coseno)"
@@ -248,6 +288,7 @@ GUI interactivo
 - "Función para exportar objeto JavaScript como archivo JSON descargable desde el navegador"
 
 **Comentarios personales**
+
 - Aprendizaje: Entender cómo transformar datos estructurados en representaciones visuales 3D. Quedo claro que mapear arrays a componentes React es directo, pero controlar aspectos como la cámara requiere trabajar fuera del ciclo de renderizado normal de React usando hooks específicos de R3F.
 - Retos: El control dinámico de la cámara fue problemático porque las props del `<Canvas>` son estáticas. Se tubo que crear un componente interno que accede al contexto de Three.js con useThree() para actualizar la posición en cada cambio del slider. Se ajustó cómo sincronizar el estado de React con los controles de Leva.
 - Mejoras futuras: Agregar importación de CSV para generar escenas desde datasets reales, implementar más algoritmos generativos (fractales, noise), y permitir editar visualmente la posición de objetos con gizmos tipo editor 3D.
@@ -255,11 +296,14 @@ GUI interactivo
 ---
 
 9. CONVOLUCIONES PERSONALIZADAS
+
 **Explicación**
+
 Se generó la implementación de las convoluciones a una imagen de manera manual (Creando la matriz para la comvolución) y de manera autamatica con la función cv2.filter2D de la libreria de CV2.
 En primera instacia se creó una funcion que aplica la matriz de convolución a la imagen para efectuar el filtro. Luego, se generó un banco de matrices para los diferentes filtros (sharpen, blur, bordes horizontales y bordes verticales). Finalmente, se aplicó a la imagen el filtro mediante la función de cv2 y mediante la funcion creada en el codigo para evidenciar las diferencias.
 
 **GIFS**
+
 La imagen de arriba es la original
 La de la izquierda es el filtro automatico
 La de la derecha es el filtro manual
@@ -273,20 +317,25 @@ Orden de la visualización
 ![Gif animado](gifs\ejercicio_9.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\09_convoluciones_personalizadas)
+
+[Ejercicio 9](ejercicios/09_convoluciones_personalizadas)
 
 **Prompts utilizados**
+
 - Explicame como funciona el filtro blur en una convolución para aplicar en una matriz
 - Explicame como funciona el filtro sharpen en una convolución para aplicar en una matriz
 - Explicame como funciona el filtro de bordes en una convolución para aplicar en una matriz
 
 **Comentarios personales**
+
 - Aprendizaje: Entender cómo la funcion de convolución de CV2 trabaja internamente para aplicar el filtro correspondiente.
 - Retos: Generar la función que aplicara el filtro de cualquier matriz que se le porporcionara y que este funcionara
 - Mejoras futuras: Agregar mas filtros para poder probar y entender su funcionamiento a detalle.
 
 10. MODELOS COLOR PERCEPCION
+
 **Explicación**
+
 A una imagen cualquiera aplicarle diferentes filtros de color para poder ver las diferencias y persepciones que generan estos al espectador.
 Se aplicaron los filtros de daltonismo, de temperatura frío y calido, de alta y baja iluminación, inverción de colores y monocromismo.
 Adicional a esto, se aplico la información de color RGB - HSV - Lab a la imagen.
@@ -294,17 +343,21 @@ Adicional a esto, se aplico la información de color RGB - HSV - Lab a la imagen
 Para cada apartado de filtro, se generó una función propia que modifica a la imagen original.
 
 **GIFS**
+
 ![Gif animado](gifs\ejercicio_10.gif)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\10_modelos_color_percepcion)
+
+[Ejercicio 10](ejercicios/10_modelos_color_percepcion)
 
 **Prompts utilizados**
+
 - Como es el filtro para el daltonismo en OpenCV
 - Como es el filtro para la inversión en OpenCV
 - Como es el filtro para el monocromismo en OpenCV
 
 **Comentarios personales**
+
 - Aprendizaje: Entender cómo modificando la gama de colores de una imagen se puede percibir y entender la imagen de maneras diferentes.
 - Retos: Generar las diferentes funciones que modifiquen de diferentes maneras la gama de colores de una imagen
 - Mejoras futuras: Poder implementar esta modificación de colores a un video aplicando los filtros frame a frame.
@@ -313,7 +366,9 @@ Para cada apartado de filtro, se generó una función propia que modifica a la i
 
 
 12. GESTOS WEBCAM MEDIAPIPE
+
 **Explicación**
+
 Etapas realizadas
 - Investigación de funcionalidades de Mediapipe para generación de landmarks (conteo de dedos, distancias y generación de lista de dedos "arriba").
 - Implementación de landmarks y código en mediapipe.
@@ -327,6 +382,7 @@ Etapas realizadas
 El programa se generó de tal manera que fuera cómodo e intuitivo, la distribución de las ventanas y demás configuraciones visuales buscan que sea agradable a la vista. Por otro lado, se intentó implementar el funcionamiento con threads (debido a pygame y sus requerimientos de funcionamiento). Sin embargo, esto generó un bloqueo que no permite que se ejecute más de 1 modo en una sola ejecución del programa.
 
 **GIFS**
+
 Control de filtro Blur:
 ![Control de filtro de blur](gifs/blurControl.gif)
 
@@ -343,14 +399,17 @@ Interfaz gráfica:
 ![Interfaz gráfica](ejercicios\12_gestos_webcam_mediapipe\gifs\interface.png)
 
 **Link del codigo**
-[Ejercicio 1](ejercicios\12_gestos_webcam_mediapipe)
+
+[Ejercicio 12](ejercicios/12_gestos_webcam_mediapipe)
 
 **Prompts utilizados**
+
 - Necesito generar landmarks de manos usando mediapipe en Python.
 - Cuéntame sobre funcionalidades básicas de pygame.
 - Necesito generar un juego de Snake en python usando pygame.
 
 **Comentarios personales**
+
 En este taller se aprendó un sobre el tipo de desafios que se enfrentan al manejar una arquitectura de múltiples funcionalidades. Adicionalmente, se aprendió sobre algunas funciones de mediapipe y cómo pueden ser útiles para la implementación de programas que interactuén con la webcam.
 
 En los próximos proyectos se mejoraró el manejo del tiempo e intentaré generar una interfaz gráfica más cómoda y personalizada, que permita interactuar mejor con las funcionalidades aplicadas en el código. Adicionalmente, se aprenderá un poco más sobre el manejo de threads para generar una verdadera integración de funcionalidades en los proyectos.
