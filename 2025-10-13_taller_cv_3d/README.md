@@ -25,7 +25,7 @@ Se decidió reorganizar los objetos para que el pequeño nieto (un cono azul) te
 
 **GIFS**
 
-![Gif animado](gifs\ejercicio_1.gif)
+![Gif animado](gifs/ejercicio_1.gif)
 
 **Link del codigo**
 
@@ -56,26 +56,26 @@ Se implemento el ejercicio mediante las siguientes etapas:
 
 **GIFS**
 
-Todos los filtros aplicados (HSV filtrando color amarillo):
+Todos los filtros aplicados (HSV filtrando color amarillo):  
 ![Todos los filtros](gifs/allFilters.gif)
 
-Filtros de blur/sharpening:
+Filtros de blur/sharpening:  
 ![Filtros de blur/sharpening](gifs/blurSharp.gif)
 
-Filtros Sobel X/Y:
+Filtros Sobel X/Y:  
 ![Filtros Sobel X/Y](gifs/sobel.gif)
 
-Filtro laplaciano:
+Filtro laplaciano:  
 ![Filtro laplaciano](gifs/laplacian.gif)
 
-Filtro en escala de grises:
+Filtro en escala de grises:  
 ![Filtro en escala de grises](gifs/gray.gif)
 
-Filtro de colores con HSV(Amarillo):
+Filtro de colores con HSV(Amarillo):  
 ![Filtro de color amarillo](gifs/hsvFilter.gif)
 
-Interfaz gráfica:
-![Interfaz gráfica](ejercicios\02_ojos_digitales_opencv\gifs\interface.png)
+Interfaz gráfica:  
+![Interfaz gráfica](ejercicios/02_ojos_digitales_opencv/gifs/interface.png)
 
 **Link del codigo**
 
@@ -107,8 +107,8 @@ El GIF generado muestra secuencialmente:
 - La imagen original en escala de grises,
 - La imagen con umbral fijo invertido,
 - La imagen con umbral adaptativo,
-- Finalmente, la imagen con los contornos dibujados y la información de centroide, área, perímetro y vértices anotada.
-![Gif animado](gifs\resultado.gif)
+- Finalmente, la imagen con los contornos dibujados y la información de centroide, área, perímetro y vértices anotada.  
+![Gif animado](gifs/resultado.gif)
 
 **Link del codigo**
 
@@ -134,7 +134,7 @@ En este ejercicio se trabajó directamente sobre los píxeles y regiones de una 
 
 **GIFS**
 
-![Gif animado](gifs\ejercicio_4_1.gif)
+![Gif animado](gifs/ejercicio_4_1.gif)
 
 **Link del codigo**
 
@@ -163,7 +163,7 @@ Se realizó el cargue, la binarización y se limpio el fondo mediante threshold 
 
 **GIFS**
 
-![Gif animado](gifs\ejercicio_6.gif)
+![Gif animado](gifs/ejercicio_6.gif)
 
 **Link del codigo**
 
@@ -191,11 +191,11 @@ El proyecto permite alternar entre formatos, activar wireframe, y ver estadísti
 
 **GIFS**
 
-Selector de Formatos
-![Gif animado](gifs\formatos.gif)
+Selector de Formatos  
+![Gif animado](gifs/formatos.gif)
 
-Modo Wireframe
-![Gif animado](gifs\wireframe.gif)
+Modo Wireframe  
+![Gif animado](gifs/wireframe.gif)
 
 **Link del codigo**
 
@@ -260,17 +260,17 @@ Se usó useControls de Leva para crear sliders, selectores y botones. El control
 
 **GIFS**
 
-Escena 1
-![Gif animado](gifs\escena_1.gif)
+Escena 1  
+![Gif animado](gifs/escena_1.gif)
 
-Escena 2
-![Gif animado](gifs\escena_2.gif)
+Escena 2  
+![Gif animado](gifs/escena_2.gif)
 
-Escena 3
-![Gif animado](gifs\escena_3.gif)
+Escena 3  
+![Gif animado](gifs/escena_3.gif)
 
-GUI interactivo
-![Gif animado](gifs\controles.gif)
+GUI interactivo  
+![Gif animado](gifs/controles.gif)
 
 **Link del codigo**
 
@@ -314,7 +314,7 @@ Orden de la visualización
 - Bordes horizontales
 - Blur
 
-![Gif animado](gifs\ejercicio_9.gif)
+![Gif animado](gifs/ejercicio_9.gif)
 
 **Link del codigo**
 
@@ -344,7 +344,7 @@ Para cada apartado de filtro, se generó una función propia que modifica a la i
 
 **GIFS**
 
-![Gif animado](gifs\ejercicio_10.gif)
+![Gif animado](gifs/ejercicio_10.gif)
 
 **Link del codigo**
 
@@ -383,20 +383,20 @@ El programa se generó de tal manera que fuera cómodo e intuitivo, la distribuc
 
 **GIFS**
 
-Control de filtro Blur:
+Control de filtro Blur:  
 ![Control de filtro de blur](gifs/blurControl.gif)
 
-Control de escala de grises:
+Control de escala de grises:  
 ![Control de escala de grises](gifs/grayControl.gif)
 
-Control de movimiento de pantalla:
+Control de movimiento de pantalla:  
 ![Control de posición de pantalla](gifs/movementControl.gif)
 
-Control de Snake con gestos:
+Control de Snake con gestos:  
 ![Control de snake con gestos](gifs/snakeControl.gif)
 
-Interfaz gráfica:
-![Interfaz gráfica](ejercicios\12_gestos_webcam_mediapipe\gifs\interface.png)
+Interfaz gráfica:  
+![Interfaz gráfica](ejercicios/12_gestos_webcam_mediapipe/gifs/interface.png)
 
 **Link del codigo**
 
