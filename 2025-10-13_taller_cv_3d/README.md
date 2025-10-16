@@ -440,6 +440,7 @@ En los próximos proyectos se mejoraró el manejo del tiempo e intentaré genera
 
 # ESTRUCTURA DEL REPOSITORIO
 
+```
 2025-10-13_taller_cv_3d/
 ├── ejercicios/
 │   ├── 01_jerarquias_transformaciones/
@@ -456,4 +457,4 @@ En los próximos proyectos se mejoraró el manejo del tiempo e intentaré genera
 │   └── 12_gestos_webcam_mediapipe/
 ├── gifs/
 ├── README.md
-
+```
