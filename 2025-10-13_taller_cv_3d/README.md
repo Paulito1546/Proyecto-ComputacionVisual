@@ -60,7 +60,7 @@ Todos los filtros aplicados (HSV filtrando color amarillo):
 ![Todos los filtros](gifs/allFilters.gif)
 
 Filtros de blur/sharpening:  
-![Filtros de blur/sharpening](gifs/blurSharp.gif)
+![Filtros de blur/sharpening](gifs/blurShar.gif)
 
 Filtros Sobel X/Y:  
 ![Filtros Sobel X/Y](gifs/sobel.gif)
@@ -163,7 +163,7 @@ Se realizó el cargue, la binarización y se limpio el fondo mediante threshold 
 
 **GIFS**
 
-![Gif animado](gifs/ejercicio_6.gif)
+![Gif animado](gifs/Ejercicio_6.gif)
 
 **Link del codigo**
 
@@ -196,6 +196,16 @@ Selector de Formatos
 
 Modo Wireframe  
 ![Gif animado](gifs/wireframe.gif)
+
+Tabla comparativa principal  
+| Métrica | OBJ | STL | GLTF |
+|---------|-----|-----|------|
+| Vértices | 1,220 | 1,220 | 1,220 |
+| Caras | 2,432 | 2,432 | 2,432 |
+| Tamaño | 116.41 KB | 118.83 KB | 48.50 KB |
+| Colores | Sí (.mtl) | No | Sí (integrado) |
+| Animaciones | No | No | Sí |
+| Compresión | No | No | Binaria (GLB) |
 
 **Link del codigo**
 
@@ -314,7 +324,7 @@ Orden de la visualización
 - Bordes horizontales
 - Blur
 
-![Gif animado](gifs/ejercicio_9.gif)
+![Gif animado](gifs/Ejercicio_9.gif)
 
 **Link del codigo**
 
@@ -332,6 +342,8 @@ Orden de la visualización
 - Retos: Generar la función que aplicara el filtro de cualquier matriz que se le porporcionara y que este funcionara
 - Mejoras futuras: Agregar mas filtros para poder probar y entender su funcionamiento a detalle.
 
+---
+
 10. MODELOS COLOR PERCEPCION
 
 **Explicación**
@@ -344,7 +356,7 @@ Para cada apartado de filtro, se generó una función propia que modifica a la i
 
 **GIFS**
 
-![Gif animado](gifs/ejercicio_10.gif)
+![Gif animado](gifs/Ejercicio_10.gif)
 
 **Link del codigo**
 
@@ -363,7 +375,6 @@ Para cada apartado de filtro, se generó una función propia que modifica a la i
 - Mejoras futuras: Poder implementar esta modificación de colores a un video aplicando los filtros frame a frame.
 
 ---
-
 
 12. GESTOS WEBCAM MEDIAPIPE
 
@@ -413,3 +424,36 @@ Interfaz gráfica:
 En este taller se aprendó un sobre el tipo de desafios que se enfrentan al manejar una arquitectura de múltiples funcionalidades. Adicionalmente, se aprendió sobre algunas funciones de mediapipe y cómo pueden ser útiles para la implementación de programas que interactuén con la webcam.
 
 En los próximos proyectos se mejoraró el manejo del tiempo e intentaré generar una interfaz gráfica más cómoda y personalizada, que permita interactuar mejor con las funcionalidades aplicadas en el código. Adicionalmente, se aprenderá un poco más sobre el manejo de threads para generar una verdadera integración de funcionalidades en los proyectos.
+
+# DEPENDECIAS
+
+- npm install
+- pip install trimesh numpy
+- python convert_models.py
+- @react-three/fiber
+- @react-three/drei
+- leva
+- react
+- react-dom
+- mediapipe
+- pygame
+
+# ESTRUCTURA DEL REPOSITORIO
+
+2025-10-13_taller_cv_3d/
+├── ejercicios/
+│   ├── 01_jerarquias_transformaciones/
+│   ├── 02_ojos_digitales_opencv/
+│   ├── 03_segmentacion_umbral_contornos/
+│   ├── 04_imagen_matriz_pixeles/
+│   ├── 05_rasterizacion_clasica/
+│   ├── 06_analisis_figuras_geometricas/
+│   ├── 07_conversion_formatos_3d/
+│   ├── 08_escenas_parametricas/
+│   ├── 09_convoluciones_personalizadas/
+│   ├── 10_modelos_color_percepcion/
+│   ├── 11_proyecciones_camara/
+│   └── 12_gestos_webcam_mediapipe/
+├── gifs/
+├── README.md
+
