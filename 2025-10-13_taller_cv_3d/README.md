@@ -1,5 +1,13 @@
 ## Taller cv 3d
 
+#Integrantes del equipo
+
+- Deibyd Santiago Barragán Gaitán.
+- Paul Marie Emptoz.
+- Juan Felipe Hernandez Ochoa.
+- Juan Diego Mendoza Torres.
+- Julián David Osorio Amaya.
+
 # Resumen del taller
 Se busca con el taller poder trabajar varios de los temas iniciales que se presentan a la hora de trabajar en el desarollo de modelado 3D y vision por  cumputador. 
 Se tocan temas como
