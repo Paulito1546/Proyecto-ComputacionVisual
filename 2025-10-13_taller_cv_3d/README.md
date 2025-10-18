@@ -160,6 +160,24 @@ No se emplearon prompts automáticos. Todo el código y los assets fueron desarr
 
 ---
 
+6. Rasterización desde Cero (Línea, Círculo, Triángulo)
+**Explicación**
+Bresenham tiene como bjetivo el dibujar una línea entre dos puntos usando solo operaciones enteras, evita cálculos con números decimales o flotantes, logrando mayor eficiencia.
+punto medio Dibujas círculos perfectos de forma eficiente, usa simetría y cálculos enteros para reducir el trabajo computacional. Scanline por su parte
+rellenar un triángulo delimitado por tres vértices con color.
+
+Finalmente, estos tres algoritmos constituyen la base de cualquier motor de gráficos 2D/3D.
+Bresenham define los bordes, Punto Medio define curvas, Scanline permite el relleno de figuras.
+
+**GIFS**
+
+![Gif animado](gifs/Ejercicio_6.gif)
+
+**Link del codigo**
+
+[Ejercicio 6](ejercicios/05)
+
+
 6. ANALISIS FIGURAS GEOMETRICAS
 
 **Explicación**
@@ -407,7 +425,7 @@ resuelve estos problemas de importar modulos, este es el proceso que se siguió
 
 **GIFS**
 
-![Gif animado](gifs/Ejercicio_10.gif)
+![Gif animado](gifs/Ejercicio11.gif)
 
 **Link del codigo**
 
