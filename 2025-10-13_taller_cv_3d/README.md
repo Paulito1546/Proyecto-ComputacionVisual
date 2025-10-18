@@ -161,7 +161,11 @@ No se emplearon prompts automáticos. Todo el código y los assets fueron desarr
 ---
 
 6. Rasterización desde Cero (Línea, Círculo, Triángulo)
+
+   
 **Explicación**
+
+
 Bresenham tiene como bjetivo el dibujar una línea entre dos puntos usando solo operaciones enteras, evita cálculos con números decimales o flotantes, logrando mayor eficiencia.
 punto medio Dibujas círculos perfectos de forma eficiente, usa simetría y cálculos enteros para reducir el trabajo computacional. Scanline por su parte
 rellenar un triángulo delimitado por tres vértices con color.
@@ -171,11 +175,11 @@ Bresenham define los bordes, Punto Medio define curvas, Scanline permite el rell
 
 **GIFS**
 
-![Gif animado](gifs/Ejercicio_6.gif)
+![Gif animado](gifs/Ejercicio_5.gif)
 
 **Link del codigo**
 
-[Ejercicio 6](ejercicios/05)
+[Ejercicio 5](ejercicios/05)
 
 
 6. ANALISIS FIGURAS GEOMETRICAS
