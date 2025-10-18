@@ -383,6 +383,35 @@ Para cada apartado de filtro, se generó una función propia que modifica a la i
 - Mejoras futuras: Poder implementar esta modificación de colores a un video aplicando los filtros frame a frame.
 
 ---
+11.  Proyecciones 3D (Perspectiva vs Ortográfica)
+**Explicación**
+
+Mediante el uso de PerspectiveCamera podemos crea una cámara con perspectiva realista, pues simula una camara real,
+con OrthographicCamera proyecta sin perspectiva, no hay distroción por distancia y es usado para vistas 2D o técnicas, 
+OrbitControls permite rotar, hacer zoom y mover la cámara con el mouse; El HUD dinámico muestra datos 
+actualizados en pantalla, finalmente con Vector3.project(camera) convierte coordenadas 3D en 2D para mostrar puntos en pantalla.
+
+*Implementación*
+
+Usamos un archivo HTML, JS y Vite, pues la librería Three,js nos dió problemas en un principio cuando la llamabamos, pero Vite 
+resuelve estos problemas de importar modulos, este es el proceso que se siguió
+1. Inicializa el entorno 3D creando la escena, la cámara y el renderizador.
+2. Configura una PerspectiveCamera para obtener una vista realista del cubo.
+3. Añade OrbitControls para permitir rotar, hacer zoom y mover la cámara con el mouse.
+4. Crea un cubo geométrico con material básico y lo añade a la escena.
+5. Genera un HUD dinámico que muestra información de la cámara en tiempo real.
+6. Anima el cubo haciendo que gire de forma continua en el eje X e Y.
+7. Renderiza cada frame con requestAnimationFrame, actualizando la vista 60 veces por segundo.
+8. Calcula la proyección de un punto 3D sobre la pantalla usando Vector3.project(camera).
+9. Muestra visualmente en el HUD la posición 2D proyectada del punto.
+
+**GIFS**
+
+![Gif animado](gifs/Ejercicio_10.gif)
+
+**Link del codigo**
+
+
 
 12. GESTOS WEBCAM MEDIAPIPE
 
