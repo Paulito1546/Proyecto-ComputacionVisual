@@ -2,16 +2,12 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 console.log("✅ Script cargado correctamente");
-
-// Escena y renderizador
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x101010);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.innerHTML = "";
 document.body.appendChild(renderer.domElement);
-
-// Cámaras
 const aspect = window.innerWidth / window.innerHeight;
 const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
 camera.position.set(2, 2, 5);
@@ -20,11 +16,9 @@ orthoCam.position.set(2, 2, 5);
 
 let activeCamera = camera;
 
-// OrbitControls
 const controls = new OrbitControls(activeCamera, renderer.domElement);
 controls.enableDamping = true;
 
-// Luz y cubo
 const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
 const cube = new THREE.Mesh(
@@ -33,7 +27,6 @@ const cube = new THREE.Mesh(
 );
 scene.add(cube);
 
-// HUD
 const hud = document.createElement("div");
 hud.id = "hud";
 hud.style.position = "absolute";
@@ -46,7 +39,6 @@ hud.style.padding = "8px";
 hud.style.borderRadius = "8px";
 document.body.appendChild(hud);
 
-// Animación
 function animate() {
   requestAnimationFrame(animate);
   cube.rotation.x += 0.01;
@@ -68,7 +60,6 @@ function animate() {
 }
 animate();
 
-// Cambiar cámara con tecla “C”
 document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "c") {
     activeCamera = activeCamera === camera ? orthoCam : camera;
@@ -76,7 +67,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Ajustar al redimensionar-]+
 window.addEventListener("resize", () => {
   const aspect = window.innerWidth / window.innerHeight;
   camera.aspect = aspect;
@@ -88,60 +78,3 @@ window.addEventListener("resize", () => {
 
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
-/* 
-Codigo de cubo moviendose con Three.js
-import * as THREE from "three";
-
-console.log("✅ Script cargado correctamente");
-
-// Escena
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x101010);
-
-// Cámara
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.z = 5;
-
-// Renderizador
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.innerHTML = "";
-document.body.appendChild(renderer.domElement);
-
-// Cubo
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-// Luz para hacerlo más visible (aunque MeshBasic no la necesita)
-const light = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(light);
-
-
-
-// Animación
-function animate() {
-  requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  renderer.render(scene, camera);
-}
-animate();
-
-// Ajuste al redimensionar
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-console.log("🎨 Escena inicializada");
-
- */
