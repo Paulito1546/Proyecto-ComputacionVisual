@@ -160,11 +160,9 @@ No se emplearon prompts automáticos. Todo el código y los assets fueron desarr
 
 ---
 
-6. Rasterización desde Cero (Línea, Círculo, Triángulo)
-
-   
+5. Rasterización desde Cero (Línea, Círculo, Triángulo)
+  
 **Explicación**
-
 
 Bresenham tiene como bjetivo el dibujar una línea entre dos puntos usando solo operaciones enteras, evita cálculos con números decimales o flotantes, logrando mayor eficiencia.
 punto medio Dibujas círculos perfectos de forma eficiente, usa simetría y cálculos enteros para reducir el trabajo computacional. Scanline por su parte
@@ -175,11 +173,11 @@ Bresenham define los bordes, Punto Medio define curvas, Scanline permite el rell
 
 **GIFS**
 
-![Gif animado](gifs/Ejercicio_5.gif)
+![Gif animado](outputs/{B4074E53-2228-4F94-9C1D-E608A5BFE268}.png)
 
 **Link del codigo**
 
-[Ejercicio 5](ejercicios/05)
+[Ejercicio 5](ejercicios/05_rasterizacion_clasica)
 
 
 6. ANALISIS FIGURAS GEOMETRICAS
@@ -429,10 +427,11 @@ resuelve estos problemas de importar modulos, este es el proceso que se siguió
 
 **GIFS**
 
-![Gif animado](gifs/Ejercicio11.gif)
+![Gif animado](2025-10-13_taller_cv_3d/ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/Ejercicio11.gif)
 
 **Link del codigo**
 
+![codigo](2025-10-13_taller_cv_3d/ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/main.js)
 
 
 12. GESTOS WEBCAM MEDIAPIPE
