@@ -173,10 +173,10 @@ Bresenham define los bordes, Punto Medio define curvas, Scanline permite el rell
 
 **imagenes**
 
-![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/{B4074E53-2228-4F94-9C1D-E608A5BFE268}.png)
-![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/bresenham_lines.png)
-![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/midpoint_circles.png)
-![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/scanline_triangles.png)
+![Imagenes](ejercicios/05_rasterizacion_clasica/outputs/{B4074E53-2228-4F94-9C1D-E608A5BFE268}.png)
+![Imagenes](ejercicios/05_rasterizacion_clasica/outputs/bresenham_lines.png)
+![Imagenes](ejercicios/05_rasterizacion_clasica/outputs/midpoint_circles.png)
+![Imagenes](ejercicios/05_rasterizacion_clasica/outputs/scanline_triangles.png)
 
 
 **Link del codigo**
