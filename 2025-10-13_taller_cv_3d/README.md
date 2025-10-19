@@ -171,9 +171,13 @@ rellenar un triángulo delimitado por tres vértices con color.
 Finalmente, estos tres algoritmos constituyen la base de cualquier motor de gráficos 2D/3D.
 Bresenham define los bordes, Punto Medio define curvas, Scanline permite el relleno de figuras.
 
-**GIFS**
+**imagenes**
 
-![Gif animado](outputs/{B4074E53-2228-4F94-9C1D-E608A5BFE268}.png)
+![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/{B4074E53-2228-4F94-9C1D-E608A5BFE268}.png)
+![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/bresenham_lines.png)
+![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/midpoint_circles.png)
+![Imagenes](2025-10-13_taller_cv_3d/ejercicios/05_rasterizacion_clasica/outputs/scanline_triangles.png)
+
 
 **Link del codigo**
 
