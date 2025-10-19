@@ -431,11 +431,11 @@ resuelve estos problemas de importar modulos, este es el proceso que se siguió
 
 **GIFS**
 
-![Gif animado](2025-10-13_taller_cv_3d/ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/Ejercicio11.gif)
+![Gif animado](ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/Ejercicio11.gif)
 
 **Link del codigo**
 
-![codigo](2025-10-13_taller_cv_3d/ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/main.js)
+![codigo](ejercicios/11.Proyecciones_3D_(Perspectiva_vs_Ortográfica)/main.js)
 
 
 12. GESTOS WEBCAM MEDIAPIPE
