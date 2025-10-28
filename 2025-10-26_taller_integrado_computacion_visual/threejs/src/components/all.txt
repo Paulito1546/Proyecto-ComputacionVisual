@@ -1,0 +1,1110 @@
+import { useEffect } from 'react'
+import { useThree } from '@react-three/fiber'
+import * as THREE from 'three'
+
+/**
+ * Visualizes depth buffer using custom shader material
+ * Demonstrates projective space and z-buffer concepts
+ */
+function DepthVisualization() {
+  const { scene, camera } = useThree()
+
+  useEffect(() => {
+    // Store original materials
+    const originalMaterials = new Map()
+
+    // Create depth material (linearizes depth buffer)
+    const depthMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying float vDepth;
+        void main() {
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          vDepth = -mvPosition.z;
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        varying float vDepth;
+        uniform float cameraNear;
+        uniform float cameraFar;
+        
+        void main() {
+          // Calculate normalized depth
+          float depth = (vDepth - cameraNear) / (cameraFar - cameraNear);
+          depth = clamp(depth, 0.0, 1.0);
+          
+          // Invert: near = 1.0 (white), far = 0.0 (black)
+          float visualDepth = 1.0 - depth;
+          
+          // Moderate contrast - not too much, not too little
+          visualDepth = pow(visualDepth, 1.8);
+          
+          gl_FragColor = vec4(vec3(visualDepth), 1.0);
+        }
+      `,
+      uniforms: {
+        cameraNear: { value: camera.near },
+        cameraFar: { value: camera.far }
+      }
+    })
+
+    // Replace all materials with depth material
+    scene.traverse((object) => {
+      if (object.isMesh) {
+        originalMaterials.set(object.uuid, object.material)
+        object.material = depthMaterial.clone()
+        object.material.uniforms.cameraNear.value = camera.near
+        object.material.uniforms.cameraFar.value = camera.far
+      }
+    })
+
+    // Cleanup: restore original materials when component unmounts
+    return () => {
+      scene.traverse((object) => {
+        if (object.isMesh && originalMaterials.has(object.uuid)) {
+          object.material = originalMaterials.get(object.uuid)
+        }
+      })
+    }
+  }, [scene, camera])
+
+  return null
+}
+
+export default DepthVisualization
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
+import * as THREE from 'three'
+
+/**
+ * Demonstrates albedo, roughness, metalness, normal map concepts
+ * Uses procedural textures for demonstration
+ */
+function Ground({ timeOfDay }) {
+  const meshRef = useRef()
+  
+  const { 
+    roughness, 
+    metalness,
+    animateMaterial 
+  } = useControls('Ground Material (PBR)', {
+    roughness: { value: 0.8, min: 0, max: 1, step: 0.01 },
+    metalness: { value: 0.1, min: 0, max: 1, step: 0.01 },
+    animateMaterial: false
+  })
+
+  // Animate material properties
+  useFrame((state) => {
+    if (animateMaterial && meshRef.current) {
+      const time = state.clock.getElapsedTime()
+      meshRef.current.material.roughness = roughness + Math.sin(time) * 0.2
+    }
+  })
+
+  // Create procedural albedo texture for ground
+  const createGroundTexture = () => {
+    const canvas = document.createElement('canvas')
+    canvas.width = 512
+    canvas.height = 512
+    const ctx = canvas.getContext('2d')
+    
+    // Base color (grass-like)
+    const baseColor = timeOfDay === 'day' ? '#4a7c59' : '#2d4a3a'
+    ctx.fillStyle = baseColor
+    ctx.fillRect(0, 0, 512, 512)
+    
+    // Add noise/variation
+    for (let i = 0; i < 5000; i++) {
+      const x = Math.random() * 512
+      const y = Math.random() * 512
+      const brightness = Math.random() * 30 - 15
+      ctx.fillStyle = `rgba(${70 + brightness}, ${124 + brightness}, ${89 + brightness}, 0.3)`
+      ctx.fillRect(x, y, 2, 2)
+    }
+    
+    return new THREE.CanvasTexture(canvas)
+  }
+
+  // Create procedural normal map
+  const createNormalMap = () => {
+    const canvas = document.createElement('canvas')
+    canvas.width = 512
+    canvas.height = 512
+    const ctx = canvas.getContext('2d')
+    
+    // Base normal color (pointing up: RGB = 128, 128, 255)
+    ctx.fillStyle = '#8080ff'
+    ctx.fillRect(0, 0, 512, 512)
+    
+    // Add bumps/variations
+    for (let i = 0; i < 3000; i++) {
+      const x = Math.random() * 512
+      const y = Math.random() * 512
+      const size = Math.random() * 8 + 2
+      
+      // Create circular gradient for bump
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, size)
+      gradient.addColorStop(0, '#a0a0ff')
+      gradient.addColorStop(0.5, '#8080ff')
+      gradient.addColorStop(1, '#6060e0')
+      
+      ctx.fillStyle = gradient
+      ctx.beginPath()
+      ctx.arc(x, y, size, 0, Math.PI * 2)
+      ctx.fill()
+    }
+    
+    return new THREE.CanvasTexture(canvas)
+  }
+
+  const groundTexture = createGroundTexture()
+  groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping
+  groundTexture.repeat.set(20, 20)
+
+  const normalMap = createNormalMap()
+  normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping
+  normalMap.repeat.set(20, 20)
+
+  return (
+    <mesh 
+      ref={meshRef}
+      rotation={[-Math.PI / 2, 0, 0]} 
+      position={[0, 0, 0]}
+      receiveShadow
+    >
+      <circleGeometry args={[100, 64]} />
+      <meshStandardMaterial
+        map={groundTexture}
+        normalMap={normalMap}
+        normalScale={[0.5, 0.5]}
+        roughness={roughness}
+        metalness={metalness}
+        color={timeOfDay === 'day' ? '#ffffff' : '#cccccc'}
+        // PBR properties: albedo (map), normal map, roughness, metalness
+      />
+    </mesh>
+  )
+}
+
+export default Ground
+import { useEffect } from 'react'
+import { Hands, HAND_CONNECTIONS } from '@mediapipe/hands'
+import { Camera } from '@mediapipe/camera_utils'
+import * as drawingUtils from 'https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js'
+
+export default function HandTracker({ onGesture, onCameraStatusChange }) {
+  useEffect(() => {
+    const video = document.createElement('video')
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+
+    Object.assign(video.style, {
+      position: 'fixed',
+      right: '10px',
+      bottom: '10px',
+      width: '200px',
+      zIndex: 9,
+      border: '2px solid white',
+      borderRadius: '8px'
+    })
+    Object.assign(canvas.style, {
+      position: 'fixed',
+      right: '10px',
+      bottom: '10px',
+      width: '200px',
+      zIndex: 10,
+      pointerEvents: 'none'
+    })
+
+    document.body.appendChild(video)
+    document.body.appendChild(canvas)
+
+    const hands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    })
+
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.6,
+      minTrackingConfidence: 0.6
+    })
+
+    let lastGesture = '—'
+    let cameraStarted = false
+
+    hands.onResults((results) => {
+      if (!cameraStarted) {
+        cameraStarted = true
+        onCameraStatusChange?.('ready') // ✅ Caméra prête
+      }
+
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height)
+
+      if (results.multiHandLandmarks?.length > 0) {
+        const lm = results.multiHandLandmarks[0]
+
+        // ✅ On dessine avec drawingUtils
+        drawingUtils.drawConnectors(ctx, lm, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 2 })
+        drawingUtils.drawLandmarks(ctx, lm, { color: '#FF0000', lineWidth: 1 })
+
+        // Détection basique "open"/"fist"
+        const tips = [4, 8, 12, 16, 20]
+        let extended = 0
+        for (let t of tips) {
+          const tip = lm[t]
+          const pip = lm[t - 2]
+          if (t === 4) {
+            if (Math.abs(tip.x - pip.x) > 0.03) extended++
+          } else if (tip.y < pip.y) extended++
+        }
+
+        if (extended >= 4) lastGesture = 'open'
+        else if (extended <= 1) lastGesture = 'fist'
+        else lastGesture = 'other'
+
+        onGesture(lastGesture)
+      }
+
+      // Affichage du nom du geste détecté
+      ctx.fillStyle = 'rgba(0,0,0,0.6)'
+      ctx.fillRect(0, 0, 200, 25)
+      ctx.fillStyle = 'white'
+      ctx.font = '14px monospace'
+      ctx.fillText(`Gesture: ${lastGesture}`, 8, 18)
+    })
+
+    // 🚀 Initialisation de la caméra
+    const cam = new Camera(video, {
+      onFrame: async () => {
+        try {
+          await hands.send({ image: video })
+        } catch (err) {
+          onCameraStatusChange?.('error')
+          console.error('Erreur MediaPipe :', err)
+        }
+      },
+      width: 320,
+      height: 240
+    })
+
+    cam
+      .start()
+      .then(() => onCameraStatusChange?.('starting'))
+      .catch(() => onCameraStatusChange?.('error'))
+
+    return () => {
+      video.remove()
+      canvas.remove()
+    }
+  }, [onGesture, onCameraStatusChange])
+
+  return null
+}
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
+import * as THREE from 'three'
+
+/**
+ * Implements multiple light types: key, fill, rim, ambient
+ * Animates light intensity and color based on time of day
+ */
+function Lighting({ timeOfDay }) {
+  const keyLightRef = useRef()
+  const rimLightRef = useRef()
+  
+  // Advanced lighting controls
+  const { 
+    keyIntensity, 
+    fillIntensity, 
+    rimIntensity,
+    animateLights
+  } = useControls('Lighting', {
+    keyIntensity: { value: 1.5, min: 0, max: 5, step: 0.1 },
+    fillIntensity: { value: 0.5, min: 0, max: 2, step: 0.1 },
+    rimIntensity: { value: 0.8, min: 0, max: 3, step: 0.1 },
+    animateLights: true
+  })
+
+  // Animate lights based on time of day
+  useFrame((state) => {
+    if (!animateLights) return
+    
+    const time = state.clock.getElapsedTime()
+    
+    if (keyLightRef.current) {
+      // Subtle rotation for dynamic shadows
+      keyLightRef.current.position.x = Math.sin(time * 0.2) * 10
+      keyLightRef.current.position.z = Math.cos(time * 0.2) * 10
+    }
+    
+    if (rimLightRef.current && timeOfDay === 'night') {
+      // Pulsating rim light at night
+      rimLightRef.current.intensity = rimIntensity + Math.sin(time * 2) * 0.3
+    }
+  })
+
+  // Day/Night color schemes
+  const isDayTime = timeOfDay === 'day'
+  const ambientColor = isDayTime ? '#87ceeb' : '#4a4a6e'
+  const keyColor = isDayTime ? '#fff5e6' : '#6a6aff'
+  const fillColor = isDayTime ? '#e6f2ff' : '#4e4e7e'
+  const rimColor = isDayTime ? '#ffd9b3' : '#ff6b9d'
+
+  return (
+    <>
+      {/* Ambient Light - base illumination */}
+      <ambientLight 
+        intensity={isDayTime ? 0.4 : 0.6} 
+        color={ambientColor}
+      />
+
+      {/* Key Light - main directional light (sun/moon) */}
+      <directionalLight
+        ref={keyLightRef}
+        position={[10, 10, 5]}
+        intensity={isDayTime ? keyIntensity : keyIntensity * 0.5}
+        color={keyColor}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-far={50}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
+      />
+
+      {/* Fill Light - softens shadows */}
+      <directionalLight
+        position={[-5, 3, -5]}
+        intensity={isDayTime ? fillIntensity : fillIntensity * 1.5}
+        color={fillColor}
+      />
+
+      {/* Rim Light - edge highlighting */}
+      <spotLight
+        ref={rimLightRef}
+        position={[0, 8, -10]}
+        intensity={rimIntensity}
+        color={rimColor}
+        angle={0.6}
+        penumbra={1}
+        castShadow={isDayTime}
+      />
+
+      {/* Hemisphere Light - simulates sky/ground bounce */}
+      <hemisphereLight
+        skyColor={isDayTime ? '#87ceeb' : '#3a3a5e'}
+        groundColor={isDayTime ? '#8b7355' : '#4a4a4a'}
+        intensity={isDayTime ? 0.6 : 0.8}
+      />
+
+      {/* Additional Point Lights for night atmosphere */}
+      {!isDayTime && (
+        <>
+          <pointLight 
+            position={[5, 2, 5]} 
+            intensity={0.5} 
+            color="#ff9966"
+            distance={10}
+          />
+          <pointLight 
+            position={[-5, 2, -5]} 
+            intensity={0.5} 
+            color="#66ccff"
+            distance={10}
+          />
+        </>
+      )}
+    </>
+  )
+}
+
+export default Lighting
+import { useGLTF } from '@react-three/drei'
+import { useRef, useMemo } from 'react'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
+
+/**
+ * Component to load and display a single 3D plant/crystal model
+ * Supports GLB format with animations and emissive materials
+ * Automatically normalizes model size based on bounding box
+ */
+function ModelPlant({ 
+  modelPath, 
+  position, 
+  scale = 1, 
+  rotation = [0, 0, 0],
+  timeOfDay,
+  animatePlants,
+  seedOffset = 0,
+  targetSize = 2 // Desired height/size in units
+}) {
+  const groupRef = useRef()
+  
+  console.log('ModelPlant loading:', modelPath)
+  
+  const { scene } = useGLTF(modelPath)
+  
+  console.log('Model loaded successfully:', modelPath)
+  
+  // Clone the scene and calculate normalized scale
+  const { clonedScene, normalizedScale, pivotOffset } = useMemo(() => {
+    const cloned = scene.clone()
+    
+    // If targetSize is not provided, use scale 1 (original size)
+    if (!targetSize) {
+      return { clonedScene: cloned, normalizedScale: 1, pivotOffset: 0 }
+    }
+    
+    // Calculate bounding box to get actual model size
+    const box = new THREE.Box3().setFromObject(cloned)
+    const size = new THREE.Vector3()
+    box.getSize(size)
+    
+    // Get the largest dimension
+    const maxDimension = Math.max(size.x, size.y, size.z)
+    
+    // Calculate scale factor to normalize to target size
+    const scaleFactor = maxDimension > 0 ? targetSize / maxDimension : 1
+    
+    // Calculate how far the bottom of the model is from the origin
+    const bottomY = box.min.y * scaleFactor
+    
+    console.log('Model normalization:', {
+      path: modelPath,
+      boundingBox: size,
+      boxMin: box.min,
+      maxDimension,
+      scaleFactor,
+      targetSize,
+      bottomY,
+      pivotOffset: -bottomY
+    })
+    
+    return { 
+      clonedScene: cloned, 
+      normalizedScale: scaleFactor,
+      pivotOffset: -bottomY // Lift to place bottom at origin
+    }
+  }, [scene, targetSize, modelPath])
+  
+  // Apply emissive properties for night mode
+  useFrame((state) => {
+    if (!groupRef.current) return
+    
+    const time = state.clock.getElapsedTime()
+    
+    // Gentle swaying animation
+    if (animatePlants) {
+      groupRef.current.rotation.z = Math.sin(time + seedOffset) * 0.05
+      groupRef.current.rotation.x = Math.cos(time * 0.5 + seedOffset) * 0.02
+    }
+    
+    // Update emissive intensity for night mode
+    if (timeOfDay === 'night') {
+      groupRef.current.traverse((child) => {
+        if (child.isMesh && child.material) {
+          const materials = Array.isArray(child.material) ? child.material : [child.material]
+          materials.forEach((mat) => {
+            if (mat.emissive) {
+              // Pulsating glow effect
+              const pulse = Math.sin(time * 2 + seedOffset) * 0.3 + 0.7
+              mat.emissiveIntensity = pulse * 0.5
+            }
+          })
+        }
+      })
+    }
+  })
+  
+  // Set up materials for day/night
+  clonedScene.traverse((child) => {
+    if (child.isMesh) {
+      child.castShadow = true
+      child.receiveShadow = true
+      
+      if (child.material) {
+        const materials = Array.isArray(child.material) ? child.material : [child.material]
+        materials.forEach((mat) => {
+          // Enable emissive for night glow
+          if (timeOfDay === 'night') {
+            if (!mat.emissive) {
+              mat.emissive = new THREE.Color(mat.color || '#ffffff')
+            }
+            mat.emissiveIntensity = 0.3
+          } else {
+            mat.emissiveIntensity = 0
+          }
+        })
+      }
+    }
+  })
+  
+  // Calculate Y offset to keep plant base on ground when scaling
+  const baseYPosition = pivotOffset // Base position at scale 1
+  const scaleAdjustment = pivotOffset * (scale - 1) // Additional lift for scale > 1
+  const finalYOffset = baseYPosition + scaleAdjustment
+  
+  return (
+    <group 
+      ref={groupRef} 
+      position={[position[0], position[1] + finalYOffset, position[2]]} 
+      rotation={rotation}
+      scale={[
+        normalizedScale * scale,
+        normalizedScale * scale,
+        normalizedScale * scale
+      ]}
+    >
+      <primitive object={clonedScene} />
+    </group>
+  )
+}
+
+export default ModelPlant
+import { useGLTF } from '@react-three/drei'
+import { useEffect } from 'react'
+
+/**
+ * Preloader component for all 3D models
+ * Loads models in the background to improve performance
+ */
+function ModelPreloader() {
+  useEffect(() => {
+    // Plant models
+    const plantModels = [
+      '/models/plants/alien_plant_cydrakoniss.glb',
+      '/models/plants/tropical_plant.glb',
+      '/models/plants/spiral_plant.glb',
+      '/models/plants/space_plant.glb',
+      '/models/plants/lupine_plant.glb',
+      '/models/plants/tentacle_plant.glb',
+      '/models/plants/eclipse_plant.glb',
+      '/models/plants/underwater_plant.glb',
+      '/models/plants/monster_plant.glb',
+      '/models/plants/horrorific_plant.glb',
+      '/models/plants/guardian_of_the_plants.glb',
+      '/models/plants/rock_and_plants.glb'
+    ]
+
+    // Crystal models (treated as plants)
+    const crystalModels = [
+      '/models/plants/crystal.glb',
+      '/models/plants/crystal2.glb',
+      '/models/plants/stylized_crystal.glb',
+      '/models/plants/crystal_stone_rock.glb'
+    ]
+
+    // Preload all models
+    const allModels = [...plantModels, ...crystalModels]
+    allModels.forEach(model => {
+      useGLTF.preload(model)
+    })
+
+    console.log(`Preloading ${allModels.length} 3D models...`)
+  }, [])
+
+  return null
+}
+
+export default ModelPreloader
+import { useRef, useState, useEffect } from 'react'
+import { useControls, button } from 'leva'
+import ModelPlant from './ModelPlant'
+
+// Available models list
+const availableModels = [
+  'alien_plant_cydrakoniss',
+  'tropical_plant',
+  'spiral_plant',
+  'space_plant',
+  'lupine_plant',
+  'tentacle_plant',
+  'eclipse_plant',
+  'underwater_plant',
+  'monster_plant',
+  'horrorific_plant',
+  'guardian_of_the_plants',
+  'rock_and_plants',
+  'crystal',
+  'crystal2',
+  'stylized_crystal',
+  'crystal_stone_rock'
+]
+
+// Get Y offset for specific models that need adjustment
+const getModelYOffset = (modelKey) => {
+  const offsets = {
+    'stylized_crystal': -0.5,           // Floating, needs to go down
+    'monster_plant': 0.3,               // Adjust positioning
+    'tentacle_plant': 0,                // New model
+    'crystal_stone_rock': 0.2,          // Adjust positioning
+    'guardian_of_the_plants': 0         // New model
+  }
+  return offsets[modelKey] || 0
+}
+
+/**
+ * Plant models collection for the garden
+ * Interactive system: click to add, select to modify, delete
+ */
+function PlantModels({ timeOfDay }) {
+  const groupRef = useRef()
+  
+  // State for managing individual plants
+  const [plants, setPlants] = useState([])
+  const [selectedPlantId, setSelectedPlantId] = useState(null)
+  const [plantIdCounter, setPlantIdCounter] = useState(0)
+  
+  // Generate random plants on initial load
+  useEffect(() => {
+    const initialPlants = []
+    const numPlants = 25 // Number of random plants to generate
+    
+    for (let i = 0; i < numPlants; i++) {
+      const randomModel = availableModels[Math.floor(Math.random() * availableModels.length)]
+      const angle = (Math.PI * 2 * i) / numPlants // Distribute in circle
+      const radius = 15 + Math.random() * 60 // Random radius between 15 and 75
+      const x = Math.cos(angle) * radius
+      const z = Math.sin(angle) * radius
+      const yOffset = getModelYOffset(randomModel)
+      
+      initialPlants.push({
+        id: `plant-initial-${i}`,
+        model: randomModel,
+        position: [x, yOffset, z],
+        rotation: [0, Math.random() * Math.PI * 2, 0],
+        scale: 2.0 + Math.random() * 2.5, // Random size between 2.0 and 4.5
+        seedOffset: Math.random() * 10
+      })
+    }
+    
+    setPlants(initialPlants)
+    setPlantIdCounter(numPlants)
+  }, []) // Empty dependency array = run once on mount
+  
+  const { 
+    animatePlants,
+    addMode,
+    selectedModel,
+    plantSize
+  } = useControls('Plants', {
+    animatePlants: { value: true, label: 'Animate Plants' },
+    addMode: { value: false, label: '➕ Add Mode (Click Ground)' },
+    selectedModel: {
+      value: 'alien_plant_cydrakoniss',
+      options: {
+        '👽 Alien Cydrakoniss': 'alien_plant_cydrakoniss',
+        '🌴 Tropical': 'tropical_plant',
+        '🌀 Spiral': 'spiral_plant',
+        '🪐 Space': 'space_plant',
+        '🌸 Lupine': 'lupine_plant',
+        '🐙 Tentacle': 'tentacle_plant',
+        '🌑 Eclipse': 'eclipse_plant',
+        '🌊 Underwater': 'underwater_plant',
+        '👾 Monster': 'monster_plant',
+        '� Horrorific': 'horrorific_plant',
+        '🛡️ Guardian': 'guardian_of_the_plants',
+        '🪨 Rock & Plants': 'rock_and_plants',
+        '�💎 Crystal 1': 'crystal',
+        '💠 Crystal 2': 'crystal2',
+        '✨ Stylized Crystal': 'stylized_crystal',
+        '🗿 Crystal Rock': 'crystal_stone_rock'
+      },
+      label: 'Model to Add'
+    },
+    plantSize: { value: 1.5, min: 0.3, max: 5, step: 0.1, label: 'Plant Size' },
+    clearAll: button(() => {
+      setPlants([])
+      setSelectedPlantId(null)
+    }, { label: '🗑️ Clear All Plants' })
+  })
+
+  // Selected plant controls
+  const selectedPlant = plants.find(p => p.id === selectedPlantId)
+  
+  useControls('Selected Plant', {
+    info: {
+      value: selectedPlant ? `${selectedPlant.model} (ID: ${selectedPlant.id})` : 'None selected',
+      label: 'Current',
+      editable: false
+    },
+    scale: {
+      value: selectedPlant?.scale || 1,
+      min: 0.3,
+      max: 5,
+      step: 0.1,
+      label: 'Scale',
+      onChange: (value) => {
+        if (selectedPlantId) {
+          setPlants(prev => prev.map(p => 
+            p.id === selectedPlantId ? { ...p, scale: value } : p
+          ))
+        }
+      },
+      disabled: !selectedPlant
+    },
+    delete: button(() => {
+      if (selectedPlantId) {
+        setPlants(prev => prev.filter(p => p.id !== selectedPlantId))
+        setSelectedPlantId(null)
+      }
+    }, { 
+      label: '❌ Delete Selected',
+      disabled: !selectedPlant
+    }),
+    deselect: button(() => {
+      setSelectedPlantId(null)
+    }, { 
+      label: '◻️ Deselect',
+      disabled: !selectedPlant
+    })
+  }, [selectedPlant, selectedPlantId])
+
+  // Model path mapping
+  const getModelPath = (modelKey) => {
+    return `/models/plants/${modelKey}.glb`
+  }
+
+  // Handle click on ground to add plant
+  const handleGroundClick = (event) => {
+    if (!addMode) return
+    
+    // Use counter + random to ensure unique IDs
+    const uniqueId = `plant-${plantIdCounter}-${Math.random().toString(36).substr(2, 9)}`
+    const yOffset = getModelYOffset(selectedModel)
+    
+    console.log('Adding plant:', {
+      id: uniqueId,
+      model: selectedModel,
+      position: [event.point.x, yOffset, event.point.z],
+      yOffset
+    })
+    
+    const newPlant = {
+      id: uniqueId,
+      model: selectedModel,
+      position: [event.point.x, yOffset, event.point.z],
+      rotation: [0, Math.random() * Math.PI * 2, 0],
+      scale: plantSize,
+      seedOffset: Math.random() * 10
+    }
+    
+    setPlants(prev => {
+      const updated = [...prev, newPlant]
+      console.log('Total plants:', updated.length)
+      return updated
+    })
+    setPlantIdCounter(prev => prev + 1)
+  }
+
+  // Handle click on plant to select it
+  const handlePlantClick = (event, plantId) => {
+    event.stopPropagation()
+    setSelectedPlantId(plantId)
+  }
+
+  return (
+    <>
+      {/* Invisible plane for clicking to add plants */}
+      {addMode && (
+        <mesh 
+          rotation={[-Math.PI / 2, 0, 0]} 
+          position={[0, 0.01, 0]}
+          onClick={handleGroundClick}
+        >
+          <planeGeometry args={[200, 200]} />
+          <meshBasicMaterial visible={false} />
+        </mesh>
+      )}
+
+      <group ref={groupRef}>
+        {/* Render interactive 3D models */}
+        {(() => {
+          console.log('Rendering plants:', plants.length, plants.map(p => ({ id: p.id, model: p.model })))
+          return plants.map((plant) => (
+            <group
+              key={plant.id}
+              onClick={(e) => handlePlantClick(e, plant.id)}
+            >
+              <ModelPlant
+                modelPath={getModelPath(plant.model)}
+                position={plant.position}
+                rotation={plant.rotation}
+                scale={plant.scale}
+                timeOfDay={timeOfDay}
+                animatePlants={animatePlants}
+                seedOffset={plant.seedOffset}
+                targetSize={2} // Fixed target size for consistency
+              />
+              
+              {/* Selection indicator */}
+              {selectedPlantId === plant.id && (
+                <mesh position={[plant.position[0], 0.05, plant.position[2]]}>
+                  <ringGeometry args={[0.8, 1, 32]} />
+                  <meshBasicMaterial color="#00ff00" transparent opacity={0.5} />
+                </mesh>
+              )}
+            </group>
+          ))
+        })()}
+      </group>
+    </>
+  )
+}
+
+export default PlantModels
+import { useEffect, useRef } from 'react'
+import { OrbitControls, PerspectiveCamera, OrthographicCamera } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
+import * as THREE from 'three'
+import Lighting from './Lighting'
+import Ground from './Ground'
+import Skybox360 from './Skybox360'
+import PlantModels from './PlantModels'
+import DepthVisualization from './DepthVisualization'
+import ModelPreloader from './ModelPreloader'
+
+/**
+ * Main scene component
+ * Now includes reactivity to:
+ * - Voice commands ("luz", "flor", "noche")
+ * - Gestures (open/fist → mapped in App.jsx)
+ * - EEG simulated value (color/intensity feedback)
+ */
+function Scene({ timeOfDay, cameraType, showDepth, command, eegValue }) {
+  const { camera, size, scene } = useThree()
+  const controlsRef = useRef()
+  const mainLight = useRef()
+  const plantsRef = useRef()
+
+  // 🎥 Ajuste les paramètres de la caméra orthographique
+  useEffect(() => {
+    if (cameraType === 'orthographic' && camera.isOrthographicCamera) {
+      const aspect = size.width / size.height
+      const viewSize = 40
+      camera.left = -viewSize * aspect
+      camera.right = viewSize * aspect
+      camera.top = viewSize
+      camera.bottom = -viewSize
+      camera.near = 0.1
+      camera.far = 2000
+      camera.updateProjectionMatrix()
+    }
+  }, [cameraType, camera, size])
+
+  // 🌞 Ajustement automatique selon jour/nuit
+  useEffect(() => {
+    const color = timeOfDay === 'night' ? 0x223344 : 0x88ccff
+    scene.background = new THREE.Color(color)
+  }, [timeOfDay, scene])
+
+  // 🎙️ Réagir aux commandes vocales et gestuelles
+  useEffect(() => {
+    if (!command) return
+
+    // ⚡ commande "luz" → flash lumineux
+    if (command === 'luz' && mainLight.current) {
+      mainLight.current.intensity = 2
+      setTimeout(() => (mainLight.current.intensity = 1), 800)
+    }
+
+    // 🌸 commande "flor" → faire "pousser" les plantes
+    if (command === 'flor' && plantsRef.current) {
+      plantsRef.current.scale.set(1.3, 1.3, 1.3)
+      setTimeout(() => plantsRef.current.scale.set(1, 1, 1), 800)
+    }
+
+    // 🌙 commande "noche" → baisse la lumière
+    if (command === 'noche' && mainLight.current) {
+      mainLight.current.intensity = 0.3
+      setTimeout(() => (mainLight.current.intensity = 1), 1000)
+    }
+  }, [command])
+
+  // 🧠 EEG simulé → changement de couleur globale
+  useEffect(() => {
+    const cold = new THREE.Color(0x3355ff)
+    const warm = new THREE.Color(0xff5533)
+    const mix = cold.clone().lerp(warm, eegValue)
+    scene.background = mix
+    if (plantsRef.current) {
+      plantsRef.current.traverse((obj) => {
+        if (obj.isMesh) {
+          obj.material.color.lerpColors(cold, warm, eegValue)
+        }
+      })
+    }
+  }, [eegValue, scene])
+
+  return (
+    <>
+      {/* Préchargement de modèles */}
+      <ModelPreloader />
+
+      {/* Caméras */}
+      {cameraType === 'perspective' ? (
+        <PerspectiveCamera makeDefault position={[0, 5, 15]} fov={60} />
+      ) : (
+        <OrthographicCamera makeDefault position={[0, 50, 100]} near={0.1} far={2000} />
+      )}
+
+      {/* Contrôles de caméra */}
+      <OrbitControls
+        ref={controlsRef}
+        enablePan
+        enableZoom
+        enableRotate
+        zoomToCursor
+        maxPolarAngle={Math.PI / 2}
+        minDistance={3}
+        maxDistance={150}
+      />
+
+      {/* Environnement visuel */}
+      <Skybox360 timeOfDay={timeOfDay} />
+
+      {/* Lumière principale */}
+      <group ref={mainLight}>
+        <Lighting timeOfDay={timeOfDay} />
+      </group>
+
+      {/* Sol */}
+      <Ground timeOfDay={timeOfDay} />
+
+      {/* Modèles de plantes (groupe modifiable) */}
+      <group ref={plantsRef}>
+        <PlantModels timeOfDay={timeOfDay} />
+      </group>
+
+      {/* Visualisation de profondeur optionnelle */}
+      {showDepth && <DepthVisualization />}
+    </>
+  )
+}
+
+export default Scene
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
+import { useGLTF } from '@react-three/drei'
+import * as THREE from 'three'
+
+/**
+ * Implements inverted sphere for equirectangular textures
+ * Supports day/night skybox switching with 3D models for sun, moon, and clouds
+ */
+function Skybox360({ timeOfDay }) {
+  const meshRef = useRef()
+  
+  // Load 3D models for environment
+  const { scene: moonScene } = useGLTF('/models/environment/moon.glb')
+  const { scene: cloudScene } = useGLTF('/models/environment/stylize_clouds.glb')
+  
+  // Load skybox models
+  const { scene: galaxyScene } = useGLTF('/models/skybox/inside_galaxy_skybox_hdri_360_panorama.glb')
+  const { scene: skydaysScene } = useGLTF('/models/skybox/skybox_skydays_3.glb')
+  
+  const { 
+    skyboxRotation,
+    animateSkybox
+  } = useControls('Skybox 360°', {
+    skyboxRotation: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+    animateSkybox: { value: true, label: 'Animate Skybox' }
+  })
+
+  // Animate skybox rotation
+  useFrame(() => {
+    if (animateSkybox && meshRef.current) {
+      meshRef.current.rotation.y += 0.0005
+    } else if (meshRef.current) {
+      meshRef.current.rotation.y = skyboxRotation
+    }
+  })
+
+  const isDay = timeOfDay === 'day'
+
+  return (
+    <group ref={meshRef}>
+      {/* Day: Skydays skybox with sun and clouds */}
+      {isDay ? (
+        <>
+          {/* Skydays skybox model - wrapped in group for better control */}
+          <group scale={[1, 1, 1]}>
+            <primitive object={skydaysScene.clone()} />
+          </group>
+
+          {/* 3D Sun - procedural sphere with emission */}
+          <mesh position={[70, 30, -30]}>
+            <sphereGeometry args={[8, 32, 32]} />
+            <meshStandardMaterial
+              color="#ffff00"
+              emissive="#ffaa00"
+              emissiveIntensity={2}
+              roughness={1}
+              metalness={0}
+            />
+          </mesh>
+
+          {/* 3D Clouds */}
+          <Cloud position={[40, 40, -30]} scale={3.2} rotation={[0, 0.3, 0]} cloudModel={cloudScene} />
+          <Cloud position={[-45, 35, -25]} scale={2.8} rotation={[0, -1.2, 0]} cloudModel={cloudScene} />
+          <Cloud position={[25, 38, 40]} scale={3.5} rotation={[0, 2.1, 0]} cloudModel={cloudScene} />
+          <Cloud position={[-35, 36, 30]} scale={2.5} rotation={[0, -2.5, 0]} cloudModel={cloudScene} />
+          <Cloud position={[50, 42, 0]} scale={3} rotation={[0, 1.8, 0]} cloudModel={cloudScene} />
+          <Cloud position={[-50, 39, -5]} scale={3.3} rotation={[0, 0.7, 0]} cloudModel={cloudScene} />
+          <Cloud position={[0, 44, -55]} scale={2.7} rotation={[0, 1.5, 0]} cloudModel={cloudScene} />
+          <Cloud position={[10, 34, 45]} scale={2.9} rotation={[0, -0.9, 0]} cloudModel={cloudScene} />
+        </>
+      ) : (
+        <>
+          {/* Night: Galaxy skybox with moon */}
+          <group scale={[1, 1, 1]}>
+            <primitive object={galaxyScene.clone()} />
+          </group>
+
+          {/* 3D Moon model */}
+          <group position={[-60, 35, -40]} scale={3.0}>
+            <primitive object={moonScene.clone()} />
+          </group>
+        </>
+      )}
+    </group>
+  )
+}
+
+/**
+ * Cloud component with white material override
+ */
+function Cloud({ position, scale, rotation, cloudModel }) {
+  const clonedCloud = cloudModel.clone()
+  
+  // Override materials to make clouds white
+  clonedCloud.traverse((child) => {
+    if (child.isMesh) {
+      child.material = new THREE.MeshStandardMaterial({
+        color: '#ffffff',
+        roughness: 0.8,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.9
+      })
+    }
+  })
+  
+  return (
+    <group position={position} scale={scale} rotation={rotation}>
+      <primitive object={clonedCloud} />
+    </group>
+  )
+}
+
+export default Skybox360
