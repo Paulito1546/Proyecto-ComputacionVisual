@@ -7,6 +7,7 @@ import * as THREE from 'three'
  * Component to load and display a single 3D plant/crystal model
  * Supports GLB format with animations and emissive materials
  * Automatically normalizes model size based on bounding box
+ * Now supports onClick for interactivity
  */
 function ModelPlant({ 
   modelPath, 
@@ -16,7 +17,8 @@ function ModelPlant({
   timeOfDay,
   animatePlants,
   seedOffset = 0,
-  targetSize = 2 // Desired height/size in units
+  targetSize = 2, // Desired height/size in units
+  onClick // New prop for click handling
 }) {
   const groupRef = useRef()
   
@@ -134,6 +136,7 @@ function ModelPlant({
         normalizedScale * scale,
         normalizedScale * scale
       ]}
+      onClick={onClick} // New: Handle clicks on the entire group
     >
       <primitive object={clonedScene} />
     </group>
