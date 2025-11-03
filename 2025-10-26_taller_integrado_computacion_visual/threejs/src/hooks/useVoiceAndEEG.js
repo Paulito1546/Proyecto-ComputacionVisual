@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react'
 /**
  * Hook personnalisé : reconnaissance vocale + simulation EEG
  */
-export default function useVoiceAndEEG() {
+// options: { simulateEEG: boolean, intervalMs: number, delta: number }
+export default function useVoiceAndEEG(options = {}) {
+  const { simulateEEG = false, intervalMs = 400, delta = 0.15 } = options
+
   const [command, setCommand] = useState(null)
   const [eegValue, setEegValue] = useState(0.5)
 
@@ -36,15 +39,22 @@ export default function useVoiceAndEEG() {
   }, [])
 
   // --- Simulation EEG (valeur entre 0 et 1) ---
+  // --- Simulation EEG (valeur entre 0 et 1) ---
+  // By default simulation is disabled. Pass { simulateEEG: true } to enable it.
   useEffect(() => {
+    if (!simulateEEG) return
+
     let val = 0.5
     const id = setInterval(() => {
-      val += (Math.random() - 0.5) * 0.15
+      // small random walk, clamped to [0,1]
+      val += (Math.random() - 0.5) * delta
       val = Math.max(0, Math.min(1, val))
       setEegValue(val)
-    }, 400)
-    return () => clearInterval(id)
-  }, [])
+    }, intervalMs)
 
-  return { command, setCommand, eegValue }
+    return () => clearInterval(id)
+  }, [simulateEEG, intervalMs, delta])
+
+  // expose setter so real EEG input or tests can set the value
+  return { command, setCommand, eegValue, setEegValue }
 }
