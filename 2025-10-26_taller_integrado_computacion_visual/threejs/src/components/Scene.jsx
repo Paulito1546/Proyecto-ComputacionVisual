@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -12,6 +12,10 @@ import Skybox360 from './Skybox360';
 import PlantModels from './PlantModels';
 import DepthVisualization from './DepthVisualization';
 import ModelPreloader from './ModelPreloader';
+import ProceduralForest from './ProceduralForest';
+import Water from './Water';
+import River from './River'
+import { useControls } from 'leva'
 
 /**
  * Main scene component
@@ -90,6 +94,54 @@ function Scene({ timeOfDay, cameraType, showDepth, command, eegValue }) {
     }
   }, [eegValue, scene]);
 
+  // Controls component to manage forest visibility, count and GLTF foliage override
+  function ForestAndPlantControls({ timeOfDay }) {
+  const [regenerateKey, _setRegenerateKey] = useState(0)
+
+    const {
+      forestVisible,
+      forestCount,
+      forestRadius,
+      forestMinDistance,
+      forestTreeScale,
+      forestLeafCount,
+      overrideFoliageShader
+    } = useControls('Forest', {
+      forestVisible: { value: true },
+      forestCount: { value: 20, min: 0, max: 200, step: 1 },
+      forestRadius: { value: 55, min: 5, max: 200, step: 1 },
+      forestMinDistance: { value: 3.5, min: 0, max: 20, step: 0.1 },
+      forestTreeScale: { value: 1.2, min: 0.3, max: 3, step: 0.1 },
+      forestLeafCount: { value: 80, min: 8, max: 300, step: 1 },
+      overrideFoliageShader: { value: false },
+      regenerateForest: {
+        label: 'Regenerate Forest (force)',
+        // we attach a function later via the returned controls object
+        value: false
+      }
+    })
+
+    // Leva's button binding can't directly set local state here, so intercept via effect on controls if needed.
+    // We'll create a simple DOM listener: useControls' regenerateForest is a boolean toggle; using it to bump regenerateKey is optional.
+
+    return (
+      <>
+        {forestVisible && (
+          <group>
+            {/* define river exclusion zone so nothing spawns inside the river */}
+            {/** River location must match the River component below in Scene */}
+            <ProceduralForest count={forestCount} radius={forestRadius} minDistance={forestMinDistance} treeScale={forestTreeScale} leafCount={forestLeafCount} timeOfDay={timeOfDay} excludeZones={[{ x: 0, z: -10, halfLength: 90, halfWidth: 5 }]} regenerateKey={regenerateKey} />
+          </group>
+        )}
+
+        {/* Pass override down to PlantModels so GLTF plants can use the foliage shader when toggled */}
+        <group ref={plantsRef}>
+          <PlantModels timeOfDay={timeOfDay} useFoliageShaderOverride={overrideFoliageShader} excludeZones={[{ x: 0, z: -10, halfLength: 90, halfWidth: 5 }]} />
+        </group>
+      </>
+    )
+  }
+
   return (
     <>
       {/* Model preloading */}
@@ -111,7 +163,7 @@ function Scene({ timeOfDay, cameraType, showDepth, command, eegValue }) {
         zoomToCursor
         maxPolarAngle={Math.PI / 2}
         minDistance={3}
-        maxDistance={150}
+        maxDistance={50}//150
       />
 
       {/* Visual environment */}
@@ -125,10 +177,17 @@ function Scene({ timeOfDay, cameraType, showDepth, command, eegValue }) {
       {/* Ground */}
       <Ground timeOfDay={timeOfDay} />
 
-      {/* Plant models (modifiable group) */}
-      <group ref={plantsRef}>
-        <PlantModels timeOfDay={timeOfDay} />
-      </group>
+      {/* Water plane (simple, optional) */}
+      <Water size={160} position={[0, 0.01, 0]} />
+
+  {/* River (shadered) - ensure plane is horizontal so it's visible (not edge-on) */}
+  <River length={180} width={10} position={[0, 0.02, -10]} rotation={[-Math.PI / 2, 0, 0]} />
+
+      {/* Procedural forest controlled by Leva (visibility/count/etc.) */}
+      {/* Leia controls for procedural forest are declared below */}
+      <ForestAndPlantControls timeOfDay={timeOfDay} />
+
+      {/* Plant models are rendered inside ForestAndPlantControls (so we removed the duplicate render). */}
 
       {/* Optional depth visualization */}
       {showDepth && <DepthVisualization />}

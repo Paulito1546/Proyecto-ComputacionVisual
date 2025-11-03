@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useControls, button } from 'leva'
 import ModelPlant from './ModelPlant'
+import ProceduralTree from './ProceduralTree'
 
 // Available models list
 const availableModels = [
@@ -20,6 +21,7 @@ const availableModels = [
   'crystal2',
   'stylized_crystal',
   'crystal_stone_rock'
+  , 'procedural_tree'
 ]
 
 // Get Y offset for specific models that need adjustment
@@ -38,7 +40,7 @@ const getModelYOffset = (modelKey) => {
  * Plant models collection for the garden
  * Interactive system: click to add, select to modify, delete
  */
-function PlantModels({ timeOfDay }) {
+function PlantModels({ timeOfDay, excludeZones = [] }) {
   const groupRef = useRef()
   
   // State for managing individual plants
@@ -50,28 +52,43 @@ function PlantModels({ timeOfDay }) {
   useEffect(() => {
     const initialPlants = []
     const numPlants = 25 // Number of random plants to generate
-    
+
     for (let i = 0; i < numPlants; i++) {
       const randomModel = availableModels[Math.floor(Math.random() * availableModels.length)]
+
+      // attempt placement; if inside an exclude zone, retry this index
       const angle = (Math.PI * 2 * i) / numPlants // Distribute in circle
       const radius = 15 + Math.random() * 60 // Random radius between 15 and 75
       const x = Math.cos(angle) * radius
       const z = Math.sin(angle) * radius
+
+      // check exclude zones
+      let inExclude = false
+      for (const ex of excludeZones) {
+        const dx = x - (ex.x || 0)
+        const dz = z - (ex.z || 0)
+        if (Math.abs(dx) <= (ex.halfLength || 0) && Math.abs(dz) <= (ex.halfWidth || 0)) {
+          inExclude = true
+          break
+        }
+      }
+      if (inExclude) { i--; continue }
+
       const yOffset = getModelYOffset(randomModel)
-      
+
       initialPlants.push({
         id: `plant-initial-${i}`,
         model: randomModel,
         position: [x, yOffset, z],
         rotation: [0, Math.random() * Math.PI * 2, 0],
-        scale: 2.0 + Math.random() * 2.5, // Random size between 2.0 and 4.5
+        scale: 2.5, // larger fixed size
         seedOffset: Math.random() * 10
       })
     }
-    
+
     setPlants(initialPlants)
     setPlantIdCounter(numPlants)
-  }, []) // Empty dependency array = run once on mount
+  }, [excludeZones]) // regenerate initial placements if excludeZones changes
   
   const { 
     animatePlants,
@@ -104,6 +121,7 @@ function PlantModels({ timeOfDay }) {
       label: 'Model to Add'
     },
     plantSize: { value: 1.5, min: 0.3, max: 5, step: 0.1, label: 'Plant Size' },
+  // removed: useFoliageShader control — GLTFs will not get foliage shader
     clearAll: button(() => {
       setPlants([])
       setSelectedPlantId(null)
@@ -163,6 +181,16 @@ function PlantModels({ timeOfDay }) {
     // Use counter + random to ensure unique IDs
     const uniqueId = `plant-${plantIdCounter}-${Math.random().toString(36).substr(2, 9)}`
     const yOffset = getModelYOffset(selectedModel)
+
+    // Prevent placing in any exclude zone (e.g., river)
+    for (const ex of excludeZones) {
+      const dx = event.point.x - (ex.x || 0)
+      const dz = event.point.z - (ex.z || 0)
+      if (Math.abs(dx) <= (ex.halfLength || 0) && Math.abs(dz) <= (ex.halfWidth || 0)) {
+        console.warn('Cannot place plant inside an excluded zone (river).')
+        return
+      }
+    }
     
     console.log('Adding plant:', {
       id: uniqueId,
@@ -176,7 +204,7 @@ function PlantModels({ timeOfDay }) {
       model: selectedModel,
       position: [event.point.x, yOffset, event.point.z],
       rotation: [0, Math.random() * Math.PI * 2, 0],
-      scale: plantSize,
+      scale: plantSize, // controlled by UI
       seedOffset: Math.random() * 10
     }
     
@@ -210,34 +238,47 @@ function PlantModels({ timeOfDay }) {
 
       <group ref={groupRef}>
         {/* Render interactive 3D models */}
-        {(() => {
-          console.log('Rendering plants:', plants.length, plants.map(p => ({ id: p.id, model: p.model })))
-          return plants.map((plant) => (
-            <group
-              key={plant.id}
-              onClick={(e) => handlePlantClick(e, plant.id)}
-            >
-              <ModelPlant
-                modelPath={getModelPath(plant.model)}
-                position={plant.position}
-                rotation={plant.rotation}
-                scale={plant.scale}
-                timeOfDay={timeOfDay}
-                animatePlants={animatePlants}
-                seedOffset={plant.seedOffset}
-                targetSize={2} // Fixed target size for consistency
-              />
-              
-              {/* Selection indicator */}
-              {selectedPlantId === plant.id && (
-                <mesh position={[plant.position[0], 0.05, plant.position[2]]}>
-                  <ringGeometry args={[0.8, 1, 32]} />
-                  <meshBasicMaterial color="#00ff00" transparent opacity={0.5} />
-                </mesh>
-              )}
-            </group>
-          ))
-        })()}
+          {(() => {
+            console.log('Rendering plants:', plants.length, plants.map(p => ({ id: p.id, model: p.model })))
+            return plants.map((plant) => (
+              <group
+                key={plant.id}
+                onClick={(e) => handlePlantClick(e, plant.id)}
+              >
+                {plant.model === 'procedural_tree' ? (
+                  <ProceduralTree
+                    position={plant.position}
+                    rotation={plant.rotation}
+                    scale={plant.scale}
+                    timeOfDay={timeOfDay}
+                    leafCount={80}
+                    onClick={(e) => handlePlantClick(e, plant.id)}
+                  />
+                ) : (
+                  <ModelPlant
+                    modelPath={getModelPath(plant.model)}
+                    position={plant.position}
+                    rotation={plant.rotation}
+                    scale={plant.scale}
+                    timeOfDay={timeOfDay}
+                    animatePlants={animatePlants}
+                    seedOffset={plant.seedOffset}
+                    targetSize={2} // Fixed target size for consistency
+                    /* GLTF foliage shader disabled: leaves are only generated by ProceduralTree */
+                    onClick={(e) => handlePlantClick(e, plant.id)}
+                  />
+                )}
+
+                {/* Selection indicator */}
+                {selectedPlantId === plant.id && (
+                  <mesh position={[plant.position[0], 0.05, plant.position[2]]}>
+                    <ringGeometry args={[0.8, 1, 32]} />
+                    <meshBasicMaterial color="#00ff00" transparent opacity={0.5} />
+                  </mesh>
+                )}
+              </group>
+            ))
+          })()}
       </group>
     </>
   )
