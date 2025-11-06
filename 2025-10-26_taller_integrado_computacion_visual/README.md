@@ -1,18 +1,45 @@
 ## Synesthetic Garden: Jardín Sinestésico Interactivo
 
-### Descripción general
+## Integrantes 
+
+- Deibyd Santiago Barragán Gaitán.
+- Paul Marie Emptoz.
+- Juan Felipe Hernandez Ochoa.
+- Juan Diego Mendoza Torres.
+- Julián David Osorio Amaya.
+
+### Descripción general del taller 
 Synesthetic Garden es una aplicación web interactiva desarrollada para el Taller 3 de visión por computadora. Integra detección de gestos mediante cámara web, reconocimiento de voz, simulación de EEG y controles de entrada multimodal (teclado, mouse, touch) para manipular una escena 3D de un jardín virtual. Los usuarios pueden cambiar entre modo día/noche, activar efectos visuales en plantas y luces, y completar un minijuego que requiere explorar todos los métodos de interacción para alcanzar el 100% de puntaje. El proyecto cumple con los puntos 6 (entrada e interacción: UI, input y colisiones) y 7 (gestos con cámara web: detección de manos, conteo de dedos, mapeo a acciones visuales, minijuego gestual sin hardware adicional).
 
-El enfoque principal es la sinestesia: gestos y voz afectan visuales (e.g., "flor" hace crecer plantas), mientras EEG simulada altera colores. Se corrigieron errores en la detección de cámara y gestos, migrando a la API moderna de MediaPipe para mayor precisión.
+El enfoque principal es la sinestesia: gestos y voz afectan visuales (e.g., "flor" hace crecer plantas), mientras la EEG simulada altera colores. Se corrigieron errores en la detección de cámara y gestos, migrando a la API moderna de MediaPipe para mayor precisión.
 
 ### Tecnologías utilizadas
 - **Frontend y 3D**: React, @react-three/fiber y Three.js para renderizado de escena, modelos GLB de plantas y efectos de iluminación/emisivos.
 - **Detección de gestos**: @mediapipe/tasks-vision (HandLandmarker) para procesamiento en tiempo real de video, conteo de dedos y mapeo a comandos ('open' → día, 'fist' → noche).
 - **Reconocimiento de voz**: Web Speech API para comandos en español ("luz", "flor", "noche").
-- **Simulación EEG**: Valores aleatorios que interpolan colores (lerp entre frío/cálido) en fondo y materiales.
+- **Simulación EEG**: Valores aleatorios que interpolan colores (lerp entre frío/cálido) en fondo.
 - **Interacción**: Eventos de teclado/mouse/touch, UI HTML con botones y slider, colisiones en modelos 3D via onClick.
 - **Minijuego**: Estado de puntaje con useMemo, tracking de acciones únicas (gestos, botones, teclas) para victoria al 100%.
 - **Herramientas de desarrollo**: Vite para build, Leva (opcional para controles iniciales, reemplazado por UI custom).
+
+# DEPENDENCIAS
+
+- npm install
+- @react-three/fiber
+- @react-three/drei
+- leva
+- react
+- mediapipe
+
+# ESTRUCTURA DEL REPOSITORIO
+
+```
+2025-10-26_taller_integrado_computacion_visual/
+├── threejs/
+├── gifs/
+├── README.md
+```
+
 
 ### Instalación
 1. Clona el repositorio: `git clone [URL del repositorio]`.
@@ -37,15 +64,56 @@ El minijuego transforma la app en una experiencia gamificada: el objetivo es "ac
 - Gestos: Puño y mano abierta (20% cada uno).
 - Botones: Día, Noche, Flor (20% cada uno).
 - Teclas: 'd', 'n', 'f' (20% cada uno, ajustado a 8 acciones totales para incrementos de 12.5%).
-Cada acción única suma puntos. El puntaje se calcula en tiempo real con useMemo. Al 100%, alerta "¡Ganaste!" con mención de acciones completadas. El overlay muestra progreso detallado con ✔/❌.
+- Comandos por voz: Flash diurno, flash nocturno, flor.
+
+Cada acción única suma puntos. El puntaje se calcula en tiempo real con useMemo. Al 100%, alerta "Congratulations!" con mención de acciones completadas. El overlay muestra progreso detallado con ✔/❌.
 
 | Acción Requerida | Input | Efecto | Contribución al Puntaje |
 |------------------|-------|--------|-------------------------|
 | Puño | Gesto (fist) | Modo noche + 'noche' | 12.5% (primera vez) |
 | Mano abierta | Gesto (open) | Modo día + 'luz' | 12.5% (primera vez) |
-| Día | Botón o 'd' | Flash luminoso | 12.5% (por botón/tecla) |
-| Noche | Botón o 'n' | Oscurecimiento | 12.5% (por botón/tecla) |
+| Día | Botón o 'd' | Modo día | 12.5% (por botón/tecla) |
+| Noche | Botón o 'n' | Modo noche | 12.5% (por botón/tecla) |
 | Flor | Botón o 'f' | Crecimiento plantas | 12.5% (por botón/tecla) |
+| Flash diurno | Botón o 'd' | Flash luminoso | Comando por voz |
+| Flash nocturno | Botón o 'n' | Oscurecimiento | Comando por voz |
+
+### Módulos aplicados 
+Se aplicaron los siguientes módulos del taller:
+- Materiales, luz y color (PBR y modelos cromáticos)
+- Efectos personalizados
+- Texturizado dinámico y partículas
+- Visualización de imágenes y video 360° (Skybox)
+- Entrada e interacción (UI, input y colisiones)
+- Gestos con cámara web (Mediapipe Hands)
+- Reconocimiento por voz y comandos 
+- Interfaces multimodales (Voz + Comandos)
+- Simulación BCI (EEG sintético y control)
+- Espacios proyectivos y matrices de proyección 
+
+### Código relevante 
+
+
+### Evidencias gráficas 
+#### Movimiento con cámara 
+![Movimiento con cámara](gifs/movement.gif)
+#### Interacción para puntaje perfecto 
+![Interacción para puntaje perfecto](gifs/p_score.gif)
+#### Interacción con menú
+![Interacción con menú](gifs/menu.gif)
+#### Interacción por voz 
+
+<video controls="controls" src="./gifs/voice.mp4" style="max-width: 720px;">
+  Your browser does not support the video tag.
+</video>
+
+#### Interacción con EEG simulado 
+![Interacción con EEG simulado](gifs/eeg.gif)
+
+### Reflexión 
+El taller impuso múltiples retos y aprendizajes para todos los integrantes, desde el trabajo en equipo hasta los requerimientos funcionales, pues la integración de múltiples funcionalidades y de manera modular requiere de coordinación y principios de análisis y diseño de software.
+
+Haciendo enfasis en los requisitos funcionales del taller, se dificultó considerablemente la integración de texturas procedurales en la escena, problema que se intentará abordar de manera más específica en próximos talleres.
 
 ### Créditos y notas
 - Basado en tutoriales de MediaPipe y React Three Fiber.
