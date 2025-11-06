@@ -150,7 +150,7 @@ function App() {
   color-scheme: light dark;
   background-color: #242424;
 }
-
+```
 ### Evidencias gráficas 
 #### Movimiento con cámara 
 ![Movimiento con cámara](gifs/movement.gif)
