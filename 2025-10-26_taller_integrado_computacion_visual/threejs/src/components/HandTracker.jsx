@@ -50,7 +50,7 @@ export default function HandTracker({ onGesture, onCameraStatusChange }) {
         onCameraStatusChange('ready');
       } catch (error) {
         onCameraStatusChange('error');
-        console.error('Erreur initialisation MediaPipe:', error);
+        console.error('Error initializing mediapipe', error);
       }
     };
 
@@ -112,7 +112,7 @@ export default function HandTracker({ onGesture, onCameraStatusChange }) {
         detectHands();
       } catch (err) {
         onCameraStatusChange('error');
-        console.error('Erreur caméra:', err);
+        console.error('Camera error', err);
       }
     };
 

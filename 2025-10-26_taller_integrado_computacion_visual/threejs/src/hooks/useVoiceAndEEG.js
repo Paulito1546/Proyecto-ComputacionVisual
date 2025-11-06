@@ -1,60 +1,108 @@
-import { useEffect, useState } from 'react'
+// hooks/useVoiceAndEEG.js
+import { useEffect, useState, useRef } from 'react'
 
 /**
- * Hook personnalisé : reconnaissance vocale + simulation EEG
+ * Hook: reconocimiento de voz (Web Speech API) + EEG sintético
+ * - Devuelve { command, setCommand, eegValue }
+ * - Mapea variantes en español a comandos: 'luz'|'noche'|'flor'
+ * - Provee feedback hablado con SpeechSynthesis
  */
-// options: { simulateEEG: boolean, intervalMs: number, delta: number }
-export default function useVoiceAndEEG(options = {}) {
-  const { simulateEEG = false, intervalMs = 400, delta = 0.15 } = options
-
+export default function useVoiceAndEEG() {
   const [command, setCommand] = useState(null)
   const [eegValue, setEegValue] = useState(0.5)
+  const recognitionRef = useRef(null)
 
-  // --- Reconnaissance vocale ---
+  // --- Reconocimiento de voz (Web Speech API) ---
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) {
-      console.warn('API de reconnaissance vocale non disponible dans ce navigateur.')
+      console.warn('SpeechRecognition not available on browser')
       return
     }
 
-    const recog = new SpeechRecognition()
-    recog.lang = 'es-ES'
-    recog.continuous = true
-    recog.interimResults = false
+    const rec = new SpeechRecognition()
+    rec.lang = 'es-ES'
+    rec.continuous = true
+    rec.interimResults = false
+    rec.maxAlternatives = 1
 
-    recog.onresult = (event) => {
-      const last = event.results[event.results.length - 1][0].transcript.trim().toLowerCase()
-      console.log('Commande détectée :', last)
+    rec.onresult = (evt) => {
+      try {
+        const last = evt.results[evt.results.length - 1][0].transcript.trim().toLowerCase()
 
-      if (last.includes('luz')) setCommand('luz')
-      else if (last.includes('flor') || last.includes('color')) setCommand('flor')
-      else if (last.includes('noche')) setCommand('noche')
+        const triggerCommand = (cmd) => {
+          setCommand('') // allow repetition
+          setTimeout(() => setCommand(cmd), 10)
+        }
+
+        if (last.includes('día') || last.includes('luz') || last.includes('claro')) {
+          triggerCommand('day flash')
+          speakFeedback('flash diurno')
+        } else if (last.includes('noche') || last.includes('oscuro') || last.includes('apagar')) {
+          triggerCommand('night flash')
+          speakFeedback('Flash nocturno')
+        } else if (last.includes('flor') || last.includes('plant') || last.includes('crece')) {
+          triggerCommand('flor')
+          speakFeedback('Floreciendo')
+        } else {
+          console.debug('Not recognized in list', last)
+        }
+      } catch (e) {
+        console.error('onresult error', e)
+      }
     }
 
-    recog.onend = () => recog.start()
-    recog.start()
+    rec.onerror = (e) => {
+      console.warn('SpeechRecognition error', e)
+    }
 
-    return () => recog.abort()
+    rec.onend = () => {
+      // intenta reconectar para experiencia continua (si el usuario no detuvo)
+      try { rec.start() } catch (e) { /*ignore*/ }
+    }
+
+    recognitionRef.current = rec
+    try {
+      rec.start()
+    } catch (e) {
+      console.warn('Cant start voice recognition', e)
+    }
+
+    return () => {
+      try {
+        rec.onresult = null
+        rec.onend = null
+        rec.onerror = null
+        rec.stop()
+      } catch (e) {}
+      recognitionRef.current = null
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // --- Simulation EEG (valeur entre 0 et 1) ---
-  // --- Simulation EEG (valeur entre 0 et 1) ---
-  // By default simulation is disabled. Pass { simulateEEG: true } to enable it.
+  // --- Feedback por voz (speechSynthesis) ---
+  const speakFeedback = (text) => {
+    if (!('speechSynthesis' in window)) return
+    const u = new SpeechSynthesisUtterance(text)
+    u.lang = 'es-ES'
+    window.speechSynthesis.cancel()
+    window.speechSynthesis.speak(u)
+  }
+
+  // --- Simulation EEG (val entre 0 y 1) ---
   useEffect(() => {
-    if (!simulateEEG) return
-
-    let val = 0.5
+    let t0 = performance.now()
     const id = setInterval(() => {
-      // small random walk, clamped to [0,1]
-      val += (Math.random() - 0.5) * delta
+      const t = (performance.now() - t0) / 1000
+      const alpha = 0.5 + 0.4 * Math.sin(2 * Math.PI * 8 * t) // 8 Hz approx α
+      const beta  = 0.5 + 0.3 * Math.sin(2 * Math.PI * 20 * t) // 20 Hz β
+      let val = 0.6 * alpha + 0.4 * beta + (Math.random()-0.5)*0.05
       val = Math.max(0, Math.min(1, val))
-      setEegValue(val)
-    }, intervalMs)
-
+      setEegValue(Number(val.toFixed(3)))
+    }, 50)
     return () => clearInterval(id)
-  }, [simulateEEG, intervalMs, delta])
+  }, [])
 
-  // expose setter so real EEG input or tests can set the value
-  return { command, setCommand, eegValue, setEegValue }
+  return { command, setCommand, eegValue }
 }
+
