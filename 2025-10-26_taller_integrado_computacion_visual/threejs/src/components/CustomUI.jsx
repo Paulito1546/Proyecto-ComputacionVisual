@@ -1,9 +1,16 @@
+
+import { useState } from 'react'
+
 export default function CustomUI({
   setTimeOfDay,
   setCommand,
   setUsedDayBtn,
   setUsedNightBtn,
-  setUsedFlorBtn
+  setUsedFlorBtn,
+  setUseSimulatedEEG,   
+  useSimulatedEEG,      
+  manualEEG,            
+  setManualEEG          
 }) {
   return (
     <div
@@ -21,51 +28,67 @@ export default function CustomUI({
       {/* DAY BUTTON */}
       <button
         onClick={() => {
-          setTimeOfDay('day');
-          setCommand('luz');
-          setUsedDayBtn(true);               // mark day button as used
+          setTimeOfDay('day')
+          setCommand('day')
+          setUsedDayBtn(true)
         }}
         style={{ margin: '0 5px', padding: '8px 12px' }}
       >
-        ☀️ Día
+        ☀️ Day
       </button>
 
       {/* NIGHT BUTTON */}
       <button
         onClick={() => {
-          setTimeOfDay('night');
-          setCommand('noche');
-          setUsedNightBtn(true);             // mark night button as used
+          setTimeOfDay('night')
+          setCommand('night')
+          setUsedNightBtn(true)
         }}
         style={{ margin: '0 5px', padding: '8px 12px' }}
       >
-        🌙 Noche
+        🌙 Night
       </button>
 
-      {/* FLOR BUTTON */}
+      {/* FLOWER BUTTON */}
       <button
         onClick={() => {
-          setCommand('flor');
-          setUsedFlorBtn(true);              // mark flor button as used
+          setCommand('flower')
+          setUsedFlorBtn(true)
         }}
         style={{ margin: '0 5px', padding: '8px 12px' }}
       >
-        🌸 Flor
+        🌸 Flower
       </button>
 
-      {/* EEG SLIDER */}
-      <div style={{ marginTop: '10px' }}>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          defaultValue="0.5"
-          onChange={(e) => setCommand(`eeg:${e.target.value}`)}
-          style={{ width: '150px' }}
-        />
-        <span style={{ marginLeft: '8px' }}>EEG Simulado</span>
+      {/* EEG TOGGLE + SLIDER */}
+      <div style={{ marginTop: '15px' }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={useSimulatedEEG}
+            onChange={(e) => setUseSimulatedEEG(e.target.checked)}
+          />{' '}
+          Use Simulated EEG
+        </label>
+
+        {!useSimulatedEEG && (
+          <div style={{ marginTop: '8px' }}>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={manualEEG}
+              onChange={(e) => setManualEEG(parseFloat(e.target.value))}
+              style={{ width: '150px' }}
+            />
+            <span style={{ marginLeft: '8px' }}>
+              Manual EEG: {manualEEG.toFixed(2)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }
+
