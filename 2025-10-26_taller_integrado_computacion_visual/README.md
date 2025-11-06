@@ -93,7 +93,63 @@ Se aplicaron los siguientes módulos del taller:
 
 ### Código relevante 
 
+#### Fragmento de App.jsx (integración multimodal)
+```jsx
+import { Canvas } from '@react-three/fiber'
+import { useState, useCallback, useEffect, useMemo } from 'react'
+import Scene from './components/Scene'
+import useVoiceAndEEG from './hooks/useVoiceAndEEG'
+import HandTracker from './components/HandTracker'
+import CustomUI from './components/CustomUI'
 
+function App() {
+  const [timeOfDayState, setTimeOfDayState] = useState('day');
+  const { command, setCommand, eegValue } = useVoiceAndEEG();
+  const [gesture, setGesture] = useState(null);
+
+  // Lógica de gestos
+  const handleGesture = useCallback((g) => {
+    setGesture(g);
+    if (g === 'open') {
+      setTimeOfDayState('day');
+      setCommand('luz');
+    } else if (g === 'fist') {
+      setTimeOfDayState('night');
+      setCommand('noche');
+    }
+  }, [setCommand]);
+
+  // Teclado
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'd') { setTimeOfDayState('day'); setCommand('luz'); }
+      if (e.key === 'n') { setTimeOfDayState('night'); setCommand('noche'); }
+      if (e.key === 'f') { setCommand('flor'); }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
+  return (
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <HandTracker onGesture={handleGesture} />
+      <Canvas camera={{ position: [0, 5, 15], fov: 60 }} shadows>
+        <Scene timeOfDay={timeOfDayState} command={command} eegValue={eegValue} />
+      </Canvas>
+      <CustomUI setTimeOfDay={setTimeOfDayState} setCommand={setCommand} />
+    </div>
+  );
+}
+```
+
+#### Fragmento de index.css (estilos base)
+```css
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color-scheme: light dark;
+  background-color: #242424;
+}
 
 ### Evidencias gráficas 
 #### Movimiento con cámara 
