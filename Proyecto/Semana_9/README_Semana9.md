@@ -68,6 +68,13 @@ Asegúrate de tener en el mismo directorio:
 
 ### Ejecutar la aplicación
 
+#### Probar la aplicaciốn
+
+```bash
+python test_setup.py
+```
+Verificar que todas la dependencias son descargadas. 
+
 ```bash
 python semana_9_app.py
 ```
