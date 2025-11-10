@@ -77,6 +77,8 @@ Semana_8/
 │
 ├── Semana_8.ipynb
 │
+├── dt_input.mp4  
+│
 └── README.md
 ```
 
