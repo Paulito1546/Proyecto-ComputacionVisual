@@ -75,6 +75,8 @@ Semana_8/
 │   ├── diagnostics.png
 │   └── reports.png
 │
+├── Semana_8.ipynb
+│
 └── README.md
 ```
 
