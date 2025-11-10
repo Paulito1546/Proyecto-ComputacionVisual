@@ -1,0 +1,112 @@
+# ========================================
+# .gitignore - PROYECTO ANÁLISIS POSTURAL
+# ========================================
+# Este archivo evita subir datos sensibles, vídeos pesados y archivos temporales
+# Mantiene el historial de pacientes PRIVADO y el repositorio limpio
+
+# 1. HISTORIAL DE PACIENTES (NUNCA SUBIR AL REPO!)
+patients_data/
+patients_data/**/*
+# ¡EXCEPCIÓN! Mantenemos el dossier vacío en Git con .gitkeep
+!patients_data/.gitkeep
+
+# 2. VÍDEOS DE ENTRADA Y SALIDA (muy pesados)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+/media/
+/input.mp4
+/dt_input.mp4
+output_alerts.mp4
+dt_output_alerts.mp4
+
+# 3. ARCHIVOS CSV Y LOGS GENERADOS
+*.csv
+*.txt
+alertas_por_frame.csv
+dt_alertas_por_frame.csv
+resumen_simetria.csv
+dt_resumen_simetria.csv
+log_alertas.txt
+dt_log_alertas.txt
+
+# 4. CACHE DE PYTHON Y ENTORNOS VIRTUALES
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytest_cache/
+
+# 5. JUPYTER / COLAB
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# 6. IDEs (VS Code, PyCharm, etc.)
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-workspace
+*.iml
+
+# 7. SISTEMAS OPERATIVOS
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+
+# 8. ARCHIVOS TEMPORALES
+*.tmp
+*.temp
+temp/
+tmp/
+*.bak
+*.swp
+*.swo
+
+# 9. OTROS
+*.zip
+*.rar
+*.7z
+*.tar.gz
+node_modules/
+dist/
+build/
+
+# ========================================
+# FIN DEL ARCHIVO
+# ========================================
