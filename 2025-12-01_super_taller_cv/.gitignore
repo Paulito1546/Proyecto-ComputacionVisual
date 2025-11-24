@@ -1,0 +1,29 @@
+# --- Python & Entornos Virtuales ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# --- Visual Studio Code ---
+.vscode/
+*.code-workspace
+
+
+# --- Salidas y Logs del Proyecto ---
+python/results/*.json
+python/results/*.jpg
+python/results/*.png
+python/results/*.mp4
+python/results/*.csv
+
+
+# --- Datos ---
+data/*.json
+data/*.jpg
+data/*.png
+data/*.mp4
+data/*.csv
+yolov8n-seg.pt
