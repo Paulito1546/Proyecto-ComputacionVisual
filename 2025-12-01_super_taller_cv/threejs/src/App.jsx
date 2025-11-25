@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Scene3D from './components/Scene3D'
 import HUD from './components/HUD'
 import ControlsPanel from './components/ControlsPanel'
@@ -35,9 +35,9 @@ function App() {
     return () => clearInterval(interval)
   }, [])
 
-  const handleSceneUpdate = (data) => {
+  const handleSceneUpdate = useCallback((data) => {
     setSceneData(prev => ({ ...prev, ...data }))
-  }
+  }, [])
 
   const handleConfigChange = (config) => {
     setSceneConfig(prev => ({ ...prev, ...config }))

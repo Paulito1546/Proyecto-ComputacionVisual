@@ -13,7 +13,7 @@ function Scene3D({ config, onUpdate }) {
       lightingMode: 'dynamic',
       animationState: config.enableAnimations ? 'active' : 'paused'
     })
-  }, [config, onUpdate])
+  }, [config.enableAnimations, onUpdate])
 
   return (
     <Canvas shadows>
