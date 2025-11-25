@@ -66,7 +66,10 @@ Abrir: **http://localhost:3000**
 1. Ejecutar `npm run dev` en carpeta threejs
 2. Abrir navegador en `http://localhost:3000`
 3. Interactuar con escena 3D
-4. Probar modo AR
+4. Probar modo AR:
+   - Descargar e imprimir marcador Hiro
+   - Apuntar cámara al marcador
+   - Ver objetos 3D sobre el marcador
 
 ---
 

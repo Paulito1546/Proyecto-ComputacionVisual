@@ -62,9 +62,13 @@ La escena muestra tres objetos 3D con animaciones:
 
 1. Click en **"📱 AR View"**
 2. Permite acceso a la cámara
-3. Apunta la cámara a una superficie plana
-4. Verás un cubo 3D simulado sobre el video
-5. Click en **"🎮 3D View"** para volver
+3. **Descarga e imprime el marcador Hiro** (botón en pantalla)
+4. Apunta la cámara al marcador impreso
+5. Verás 3 objetos 3D aparecer sobre el marcador:
+   - Cubo rotatorio (abajo)
+   - Toro giratorio (medio)
+   - Esfera flotante (arriba)
+6. Click en **"🎮 3D View"** para volver
 
 ---
 
@@ -89,9 +93,10 @@ La escena muestra tres objetos 3D con animaciones:
 
 ### AR (Realidad Aumentada)
 - ✅ Acceso a cámara del dispositivo
-- ✅ Overlay de canvas sobre video
-- ✅ Detección de marcadores (simulada)
-- ✅ Proyección 3D en tiempo real
+- ✅ Detección de marcadores Hiro (AR.js real)
+- ✅ Tracking de marcadores en tiempo real
+- ✅ 3 objetos 3D sobre el marcador
+- ✅ Descarga del marcador desde la app
 
 ### Optimización
 - ✅ Reutilización de geometrías

@@ -27,9 +27,11 @@
 
 ✅ **C.3 - Integración AR.js con marcadores**
 - Vista AR con acceso a cámara
-- Detección de marcadores simulada
-- Proyección 3D sobre video en vivo
-- Documentación de marcadores personalizados
+- Detección real de marcadores Hiro con AR.js
+- Tracking de marcadores en tiempo real
+- 3 objetos 3D (cubo, toro, esfera) sobre el marcador
+- Descarga de marcador Hiro desde la app
+- Documentación completa de uso
 - Manejo de permisos y errores
 
 ### Características Adicionales Implementadas
@@ -156,9 +158,13 @@ npm run build
 ### Modo AR
 
 - Acceso a cámara del dispositivo
-- Overlay 3D sobre video
-- Detección de marcadores (simulada)
-- Cubo 3D animado en tiempo real
+- Detección real de marcador Hiro (AR.js)
+- 3 objetos 3D animados sobre el marcador:
+  - Cubo con rotación dual
+  - Toro giratorio
+  - Esfera flotante
+- Tracking en tiempo real del marcador
+- Descarga del marcador desde la app
 
 ---
 

@@ -1,37 +1,58 @@
-# AR Markers
+# Marcadores AR
 
-This directory contains custom AR markers for use with AR.js integration.
+## 🎯 Marcador Hiro (Principal)
 
-## Creating Custom Markers
+El marcador **Hiro** es el marcador predeterminado de AR.js.
 
-1. Visit: https://ar-js-org.github.io/AR.js/three.js/examples/marker-training/examples/generator.html
-2. Upload your image or design a pattern
-3. Download the `.patt` file and the marker image
-4. Place both files in this directory
+### Cómo Usar
 
-## Usage
+1. **Descargar el marcador**:
+   - [Descargar Marcador Hiro](https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png)
 
-The markers are used by the ARView component to detect and track objects in the camera feed.
+2. **Imprimir**:
+   - Imprime el marcador en una hoja blanca
+   - Tamaño recomendado: 10cm x 10cm o más grande
+   - Asegúrate de que se imprima con buena calidad
 
-## Default Markers
+3. **Usar en la App**:
+   - Activa el modo AR en la aplicación
+   - Permite el acceso a la cámara
+   - Apunta la cámara al marcador impreso
+   - ¡Verás objetos 3D aparecer sobre el marcador!
 
-The application includes a simulated marker detection for demonstration purposes. For production use:
+## 📱 Objetos que Aparecen
 
-1. Generate custom markers using the AR.js marker generator
-2. Place `.patt` files here
-3. Update the ARView component to use actual AR.js tracking
+Cuando detecta el marcador Hiro, verás 3 objetos 3D animados:
 
-## File Structure
+1. **Cubo** (abajo): Cubo con colores de normales, rotando
+2. **Toro** (medio): Toro giratorio con efecto arcoíris
+3. **Esfera** (arriba): Esfera flotante con movimiento ondulatorio
 
-```
-markers/
-├── marker-1.patt       # Pattern file for marker 1
-├── marker-1.png        # Visual reference for marker 1
-├── marker-2.patt       # Pattern file for marker 2
-├── marker-2.png        # Visual reference for marker 2
-└── README.md           # This file
-```
+## ⚙️ Consejos para Mejor Detección
 
-## Testing
+✅ **Iluminación**: Buena luz, evita sombras sobre el marcador  
+✅ **Distancia**: Mantén el marcador a 30-50cm de la cámara  
+✅ **Estabilidad**: Mantén el marcador plano y estable  
+✅ **Calidad**: Imprime en alta calidad, evita borrones  
 
-Print the marker images and point your camera at them when in AR mode to see 3D objects overlaid on the markers.
+❌ **Evita**:
+- Marcadores arrugados o doblados
+- Muy cerca o muy lejos
+- Luz muy brillante o muy oscura
+- Movimientos bruscos
+
+## 🎨 Marcadores Personalizados (Futuro)
+
+Para crear tus propios marcadores:
+
+1. Visita: https://ar-js-org.github.io/AR.js/three.js/examples/marker-training/examples/generator.html
+2. Sube una imagen o diseña un patrón
+3. Descarga el archivo `.patt`
+4. Colócalo en `public/markers/`
+5. Actualiza `ARView.jsx` con la nueva URL del patrón
+
+## 🔗 Enlaces Útiles
+
+- [Descargar Marcador Hiro](https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png)
+- [AR.js Documentation](https://ar-js-org.github.io/AR.js-Docs/)
+- [Marker Generator](https://ar-js-org.github.io/AR.js/three.js/examples/marker-training/examples/generator.html)
