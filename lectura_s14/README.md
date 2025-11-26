@@ -159,15 +159,7 @@ flowchart TD
 
 # 5. Aplicación a un Proyecto Final
 
-Un proyecto final de visión por computador podría ser una **aplicación de mapeo autónomo para interiores complejos** (ej., edificios con escaleras, pisos irregulares, sótanos). El enfoque ORB-SLAM3AB sería crítico en estos escenarios:
-
-**Mejora específica**: El módulo de robustez ante vibraciones permitiría que un **robot móvil o drone navegue en pisos con irregularidades** (cables, escalones pequeños, moqueta desigual) sin perder el tracking visual. Sustituiríamos el matching ORB puro por el híbrido adaptativo, activando flujo óptico automáticamente cuando vibración > umbral predefinido.
-
-**Implementación viable**: Totalmente viable. ORB-SLAM3 es open-source (OpenCV), el flujo óptico se implementa con funciones estándar (ej., `cv2.calcOpticalFlowFarneback()`). El adaptador dinámico requeriría ~200–300 líneas de código adicional (monitoreo de matching count + selección condicional de puntos).
-
-**Hardware**: Una cámara USB estándar + RPi 4 o Jetson Nano. Latencia ~50 ms es aceptable para navegación robótica (10 Hz suficiente).
-
-**Limitación práctica**: El dataset de baches no es público. Habría que recolectar datos propios o usar benchmarks estándar (ej., TUM RGB-D, KITTI). Sin validación en baches reales, no se puede confirmar que la mejora sea significativa.
+Aunque tu proyecto se enfoca principalmente en estimación de pose de cuerpo humano usando MediaPipe, la metodología adaptativa de ORB-SLAM3AB podría mejorar significativamente la robustez del sistema en escenarios de movimiento real. Específicamente, cuando los usuarios caminan naturalmente (especialmente personas mayores), hay vibraciones del cuerpo, movimientos erráticos y cambios rápidos de velocidad que pueden causar "desvanecimiento" de los landmarks (puntos clave) detectados por MediaPipe, similar al problema que ORB-SLAM3AB resuelve. Incorporar un mecanismo adaptativo híbrido—que combine la precisión de los landmarks MediaPipe con un seguimiento robusto basado en flujo óptico cuando los landmarks se pierdan durante aceleraciones—permitiría que tu sistema mantuviera la continuidad del análisis incluso en condiciones desafiantes (iluminación variable, movimientos bruscos, superficies irregulares). Esta hibridación garantizaría que los cálculos de ángulos articulares (cadera, rodilla, tobillo) permanezcan consistentes a lo largo de toda la secuencia de marcha, mejorando la precisión de las alertas de asimetría y desviación postural que generarían recomendaciones más confiables a usuarios y profesionales de la salud.
 
 ---
 
