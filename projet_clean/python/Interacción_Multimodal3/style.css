@@ -1,0 +1,147 @@
+:root {
+    --bg-dark: #121212;
+    --bg-panel: #1e1e1e;
+    --accent: #00bcd4;
+    --text-main: #e0e0e0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden; /* Vital: impide que aparezcan barras de scroll */
+    
+    /* NUEVO: Impide zoom y gestos nativos del navegador */
+    touch-action: none; 
+    overscroll-behavior: none;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    background-color: var(--bg-panel);
+    padding: 20px;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.slider-group {
+    margin-bottom: 15px;
+}
+
+.slider-group label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #aaa;
+}
+
+input[type=range] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.instructions h3 {
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+.instructions ul {
+    padding-left: 20px;
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    display: grid;
+    grid-template-rows: 2fr 1fr; /* 2 partes visualización, 1 parte logs */
+}
+
+.viewport-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #000;
+}
+
+.view-box {
+    position: relative;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+/* CAMERA & CANVAS OVERLAY */
+.camera-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+#webcam {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Efecto espejo */
+}
+
+#output_canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transform: scaleX(-1);
+}
+
+.overlay-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* SCENE */
+#scene-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* LOGS */
+.logs-panel {
+    background-color: var(--bg-panel);
+    border-top: 1px solid #333;
+    padding: 10px 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#log-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.log-entry { margin: 4px 0; border-left: 3px solid transparent; padding-left: 8px; }
+.log-entry.gesture { border-color: #ff9800; color: #ffb74d; }
+.log-entry.voice { border-color: #2196f3; color: #64b5f6; }
+.log-entry.eeg { border-color: #9c27b0; color: #ba68c8; }
+.log-entry.system { border-color: #4caf50; color: #81c784; }
