@@ -26,22 +26,22 @@ Esta tabla certifica la correspondencia entre los requisitos del `Taller_4.md` y
 
 ## 📸 Galería de Evidencias (GIFs)
 
-Como se solicita en los entregables mínimos (**mínimo 6 GIFs**), a continuación se presenta la demostración visual de cada módulo.
+Se presenta la demostración visual de cada módulo.
 
 ### 1. Percepción y Visión     
 El sistema procesa el flujo de video, aplicando máscaras de segmentación y bounding boxes con alta precisión.
-![parte A y F](docs/gifs/parte_a.gif)
+![parte A y F](gifs/parte_a.gif)
 
 ### 2. Control de Escena 3D mediante Gestos
 Uso de MediaPipe para rotar y manipular la geometría 3D usando gestos de la mano (Puño cerrado para pausar, Mano abierta para rotar).
-![Gestos MediaPipe](docs/gifs/interaction_multimodal.gif)
+![Gestos MediaPipe](gifs/interaction_multimodal.gif)
 
 ### 3. Visualización 3D y AR
-![threejs_scene](docs/gifs/parte_c.gif)
+![threejs_scene](gifs/parte_c.gif)
 
 
 ### 4. Optimización Visual
-![parte f](docs/gifs/parte_f.gif)
+![parte f](gifs/parte_f.gif)
 
 ---
 
