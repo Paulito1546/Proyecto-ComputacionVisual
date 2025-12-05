@@ -15,8 +15,8 @@ Esta tabla certifica la correspondencia entre los requisitos del `Taller_4.md` y
 | Requerimiento (Taller 4) | Implementación en Código | Estado |
 | :--- | :--- | :--- |
 | **1. Detección y Segmentación** | `python/detection/vision_core.py` (Clase `Detección_Video`) | ✅ Implementado (YOLOv8-seg) |
-| **2. Interacción Multimodal (Voz)** | `python/Interacción_Multimodal3/modules/voice.js` | ✅ Web Speech API ("Día"/"Noche") |
-| **3. Interacción Multimodal (Gestos)** | `python/Interacción_Multimodal3/modules/gestures.js` | ✅ MediaPipe (Open Hand/Fist) |
+| **2. Interacción Multimodal (Voz)** | `python/interacción_multimodal/modules/voice.js` | ✅ Web Speech API ("Día"/"Noche") |
+| **3. Interacción Multimodal (Gestos)** | `python/interacción_multimodal/modules/gestures.js` | ✅ MediaPipe (Open Hand/Fist) |
 | **4. Simulación Bioseñales (EEG)** | `python/interacción_multimodal/modules/eeg.js` | ✅ Sliders de control Alpha/Beta |
 | **5. Entrenamiento (CNN vs Fine-tune)** | `python/training/deep_learning.ipynb` | ✅ Comparativa ResNet vs MobileNet |
 | **6. Visualización 3D / AR** | `threejs/src/components/Scene3D.jsx` | ✅ React Three Fiber + Modo AR |
@@ -153,6 +153,21 @@ En la carpeta `python/training/images` se adjuntan las evidencias del proceso de
   * **Matriz de Confusión**: Muestra que el modelo distingue correctamente entre clases con un error menor al 5%.
   * **Comparativa de Arquitecturas**: Se validó que **ResNet50** ofrece un mejor balance precisión/latencia que MobileNetV2 para este caso de uso específico.
   * **Curvas ROC**: El área bajo la curva (AUC) superior a 0.92 demuestra la robustez del clasificador.
+
+Evaluación de la precisión por clase. Se observa una diagonal fuerte, indicando predicciones correctas en la mayoría de las categorías.
+![Confusion Matrix](python/training/images/confusion-matrix.png)
+
+### 2. Curvas de Aprendizaje (Loss vs Accuracy)
+Convergencia del modelo **ResNet** durante las épocas. Se evita el overfitting manteniendo la brecha entre entrenamiento y validación controlada.
+![Curvas de Entrenamiento](python/training/images/loss-accuracy-resnet.png)
+
+### 3. Comparativa de Arquitecturas (Benchmark)
+Comparación directa entre CNN personalizada, MobileNetV2 y ResNet50 en términos de precisión y tiempo de inferencia.
+![Comparativa](python/training/images/performance-comparison.png)
+
+### 4. Curvas ROC
+El Área Bajo la Curva (AUC) demuestra la capacidad del modelo para distinguir entre clases positivas y negativas.
+![Curvas ROC](python/training/images/roc-curves.png)
 
 -----
 
