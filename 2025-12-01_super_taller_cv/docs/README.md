@@ -155,19 +155,19 @@ En la carpeta `python/training/images` se adjuntan las evidencias del proceso de
   * **Curvas ROC**: El área bajo la curva (AUC) superior a 0.92 demuestra la robustez del clasificador.
 
 Evaluación de la precisión por clase. Se observa una diagonal fuerte, indicando predicciones correctas en la mayoría de las categorías.
-![Confusion Matrix](python/training/images/confusion-matrix.png)
+![Confusion Matrix](../python/training/images/confusion-matrix.png)
 
 ### 2. Curvas de Aprendizaje (Loss vs Accuracy)
 Convergencia del modelo **ResNet** durante las épocas. Se evita el overfitting manteniendo la brecha entre entrenamiento y validación controlada.
-![Curvas de Entrenamiento](python/training/images/loss-accuracy-resnet.png)
+![Curvas de Entrenamiento](../python/training/images/loss-accuracy-resnet.png)
 
 ### 3. Comparativa de Arquitecturas (Benchmark)
 Comparación directa entre CNN personalizada, MobileNetV2 y ResNet50 en términos de precisión y tiempo de inferencia.
-![Comparativa](python/training/images/performance-comparison.png)
+![Comparativa](../python/training/images/performance-comparison.png)
 
 ### 4. Curvas ROC
 El Área Bajo la Curva (AUC) demuestra la capacidad del modelo para distinguir entre clases positivas y negativas.
-![Curvas ROC](python/training/images/roc-curves.png)
+![Curvas ROC](../python/training/images/roc-curves.png)
 
 -----
 
