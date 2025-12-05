@@ -205,7 +205,7 @@ El Área Bajo la Curva (AUC) demuestra la capacidad del modelo para distinguir e
 
 ## 🔮 Trabajo Futuro y Limitaciones
 
-  * **Integración WebSocket**: Actualmente, la comunicación entre Python y JS se realiza mediante archivos simulados. Se recomienda implementar un servidor `websockets` completo en `run_app.py` para producción.
+  * **Integración WebSocket**: Actualmente, la comunicación entre Python y JS se realiza mediante archivos simulados. Se recomienda implementar un servidor `websockets` completo en `main.py` para producción.
   * **Optimización Móvil**: El módulo de segmentación YOLOv8n-seg puede requerir cuantización (INT8) para correr fluidamente en dispositivos sin GPU dedicada.
 
 -----
