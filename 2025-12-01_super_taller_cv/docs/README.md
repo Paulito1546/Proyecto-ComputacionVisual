@@ -8,6 +8,39 @@ Este repositorio contiene la implementación completa de un sistema que fusiona 
 
 ---
 
+### Estructura de Directorios (Simplificada)
+
+```tree
+projet_clean/
+├── requirements.txt           # Dependencias Python
+├── main.py                 # Punto de entrada para el módulo de Visión (Backend)
+│
+├── docs/                      # Documentación Técnica Adicional y Evidencias
+|   ├── README.md                # Documentación principal, Matriz de Cumplimiento
+│   ├── REPORT_DEEP_LEARNING.md  # Informe detallado de CNN/Transfer Learning
+│   ├── MANUAL_MULTIMODAL.md     # Guía del Prototipo de Interacción
+│   └── gifs/                    # GIFs y capturas para el informe
+│
+├── prototypes/                # Módulos de Prueba de Concepto (PoC)
+│   └── web_multimodal/          # Demo autónoma de Gestos/Voz/EEG
+│
+├── python/                    # Lógica del Backend
+│   ├── detection/
+│   │   └── vision_core.py     # Implementación YOLOv8-seg
+│   ├── training/
+│   │   └── deep_learning.ipynb # Notebook de entrenamiento y validación
+│   └── utils/
+│       └── metrics.py         # Clase para monitoreo de FPS y métricas
+│
+└── threejs/                   # Módulo de Visualización 3D (React/Three.js)
+    ├── package.json           # Dependencias Frontend (React, R3F, Vite)
+    └── src/
+        ├── components/
+        │   └── Scene3D.jsx    # Lógica central del renderizado 3D
+        └── utils/
+            └── backend-client.js # Cliente WebSocket
+```
+
 ## 📋 Matriz de Cumplimiento (Compliance Matrix)
 
 Esta tabla certifica la correspondencia entre los requisitos del `Taller_4.md` y la arquitectura del código entregado.
