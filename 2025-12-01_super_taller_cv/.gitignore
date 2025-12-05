@@ -1,29 +1,130 @@
-# --- Python & Entornos Virtuales ---
+##############################
+# OS / SYSTEM JUNK
+##############################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+##############################
+# PYTHON CACHE & BUILD
+##############################
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.log
+
+##############################
+# VENV (EXTRÊMEMENT LOURD)
+##############################
+python/venv/
 venv/
-.venv/
-env/
-.env
+.env/
+.env.*
 
-# --- Visual Studio Code ---
-.vscode/
-*.code-workspace
+##############################
+# NOTEBOOK CHECKPOINTS
+##############################
+.ipynb_checkpoints/
 
+##############################
+# LARGE TRAINING DATA / MODELS
+##############################
+# (aucun modèle détecté, mais on protège au cas où)
+*.pt
+*.pth
+*.h5
+*.onnx
+*.pickle
+*.pkl
+*.npz
+*.npy
 
-# --- Salidas y Logs del Proyecto ---
-python/results/*.json
-python/results/*.jpg
+models/
+checkpoints/
+runs/
+wandb/
+
+##############################
+# RESULTS (GARDER UNIQUEMENT JSON)
+##############################
 python/results/*.png
-python/results/*.mp4
-python/results/*.csv
+python/results/*.jpg
+python/results/*.jpeg
 
+##############################
+# GENERATED IMAGES FROM TRAINING
+##############################
+# On garde les images exemples si tu veux les montrer,
+# mais si tu veux alléger le ZIP, active :
+# python/training/images/
 
-# --- Datos ---
-data/*.json
-data/*.jpg
-data/*.png
-data/*.mp4
-data/*.csv
-yolov8n-seg.pt
+##############################
+# WEB / FRONTEND
+##############################
+# (ton dossier n'a pas de node_modules, mais on protège)
+node_modules/
+dist/
+build/
+.cache/
+
+##############################
+# FLASK / ULTRALYTICS / TMP FILES
+##############################
+*.tmp
+*.temp
+*.bak
+*.old
+*.swp
+*.lock
+
+##############################
+# DATA
+##############################
+# Tu as un dossier data/ vide avec .gitkeep
+# On ignore tout sauf les fichiers légers
+data/*
+!data/.gitkeep
+
+##############################
+# THREE.JS / JS TYPES (non présent)
+##############################
+# @types/three/
+
+##############################
+# AUTO-EXCLUSION DE FICHIERS ULTRA-LOURDS
+##############################
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.rar
+*.psd
+*.tiff
+
+##############################
+# SECRET / KEYS
+##############################
+*.key
+*.pem
+*.crt
+
+######################################################
+# ULTRA LIGHT MODE — réduire le ZIP au maximum
+######################################################
+
+# Ignorer toutes les images générées par les notebooks
+python/training/images/
+
+# Ignorer tous les PNG/JPG/JPEG partout dans le projet,
+# sauf si explicitement whitelisted plus bas
+*.png
+*.jpg
+*.jpeg
+
+# Si tu veux conserver certaines images pour le rapport,
+# décommente et adapte ci-dessous en ajoutant des exceptions :
+# !docs/images/exemple.png
+# !python/results/graph_final.png
