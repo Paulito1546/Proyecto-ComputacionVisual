@@ -18,8 +18,8 @@ Classification, este contiene imágenes de 6 clases ambientales.
 
 ### Ejemplos de imágenes del dataset 
 
-![Example one](images/example1.png)
-![Example two](images/example2.png)
+![Example one](../python/training/images/example1.png)
+![Example two](../python/training/images/example2.png)
 
 El trabajo se realizó en Google Colab, utilizando PyTorch, e incluyó:
 - Entrenamiento de una CNN construida desde cero
@@ -58,10 +58,10 @@ El trabajo se realizó en Google Colab, utilizando PyTorch, e incluyó:
 | MobileNetV2 | 92.87% | 92.94% | 93.12% | 92.99% | **11.23** |
 
 ### Comparaciones de rendimiento
-![Performance Comparison](images/performance-comparison.png)
+![Performance Comparison](../python/training/images/performance-comparison.png)
 
 ### Comparaciones de tamaño
-![Size Comparison](images/size-comparison.png)
+![Size Comparison](../python/training/images/size-comparison.png)
 
 ## Visualizaciones
 
@@ -69,7 +69,7 @@ El trabajo se realizó en Google Colab, utilizando PyTorch, e incluyó:
 
 Las matrices de confusión revelan patrones importantes sobre el comportamiento de cada modelo y las dificultades inherentes del dataset.
 
-![Confusion Matrix](images/confusion-matrix.png)
+![Confusion Matrix](../python/training/images/confusion-matrix.png)
 
 #### CNN desde Cero - Patrones de Error
 
@@ -139,13 +139,13 @@ Las matrices de confusión revelan patrones importantes sobre el comportamiento 
 Las curvas de entrenamiento revelan el comportamiento de cada modelo durante el proceso de aprendizaje, mostrando cómo convergen y su capacidad de generalización.
 
 #### CNN desde Cero
-![Loss Accuracy CNN](images/loss-accuracy-cnn.png) 
+![Loss Accuracy CNN](../python/training/images/loss-accuracy-cnn.png) 
 
 #### ResNet50 (Transfer Learning)
-![Loss Accuracy ResNet](images/loss-accuracy-resnet.png) 
+![Loss Accuracy ResNet](../python/training/images/loss-accuracy-resnet.png) 
 
 #### MobileNetV2 (Transfer Learning)
-![Loss Accuracy MobileNet](images/loss-accuracy-mobilenet.png) 
+![Loss Accuracy MobileNet](../python/training/images/loss-accuracy-mobilenet.png) 
 
 **1. Transfer Learning es transformador:**
    - Converge 2x más rápido
@@ -182,7 +182,7 @@ Las curvas de entrenamiento revelan el comportamiento de cada modelo durante el 
 
 Las curvas ROC muestran la capacidad de cada modelo para discriminar entre clases. Un AUC (Area Under Curve) cercano a 1.0 indica clasificación perfecta.
 
-![ROC Curves](images/roc-curves.png)
+![ROC Curves](../python/training/images/roc-curves.png)
 
 ### Comparación Multi-Clase (Macro-Average)
 
@@ -221,14 +221,14 @@ Grad-CAM es una técnica de visualización que permite entender **qué regiones 
 - Se enfoca en bordes y texturas generales
 - Menor capacidad para identificar características semánticas específicas
 
-![Grad-CNN](images/grad-cnn.png)
+![Grad-CNN](../python/training/images/grad-cnn.png)
 
 **MobileNetV2:**
 - Activaciones más concentradas y coherentes
 - Identifica correctamente el edificio como región principal
 - Buen balance entre precisión y eficiencia computacional
 
-![Grad-MobileNet](images/grad-mobilenet.png)
+![Grad-MobileNet](../python/training/images/grad-mobilenet.png)
 
 **ResNet50:**
 - Activaciones muy precisas y bien localizadas
@@ -236,7 +236,7 @@ Grad-CAM es una técnica de visualización que permite entender **qué regiones 
 - Identifica características arquitectónicas específicas del edificio
 - Mayor capacidad de generalización gracias a su arquitectura profunda
 
-![Grad-ResNet](images/grad-resnet.png)
+![Grad-ResNet](../python/training/images/grad-resnet.png)
 
 ## Conclusiones
 
