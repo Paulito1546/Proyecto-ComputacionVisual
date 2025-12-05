@@ -28,35 +28,20 @@ Esta tabla certifica la correspondencia entre los requisitos del `Taller_4.md` y
 
 Como se solicita en los entregables mínimos (**mínimo 6 GIFs**), a continuación se presenta la demostración visual de cada módulo.
 
-### 1. Detección y Segmentación en Tiempo Real
+### 1. Percepción y Visión     
 El sistema procesa el flujo de video, aplicando máscaras de segmentación y bounding boxes con alta precisión.
-![Detección YOLO](docs/gifs/demo_vision_yolo.gif)
-*(Ubicación sugerida: `docs/gifs/demo_vision_yolo.gif`)*
+![parte A y F](docs/gifs/parte_a.gif)
 
 ### 2. Control de Escena 3D mediante Gestos
 Uso de MediaPipe para rotar y manipular la geometría 3D usando gestos de la mano (Puño cerrado para pausar, Mano abierta para rotar).
-![Gestos MediaPipe](docs/gifs/interaction_gestures.gif)
-*(Ubicación sugerida: `docs/gifs/interaction_gestures.gif`)*
+![Gestos MediaPipe](docs/gifs/interaction_multimodal.gif)
 
-### 3. Comandos de Voz y Respuesta Ambiental
-Cambio dinámico de la iluminación y el fondo de la escena ("Modo Día/Noche") activado por voz.
-![Control por Voz](docs/gifs/voice_commands.gif)
-*(Ubicación sugerida: `docs/gifs/voice_commands.gif`)*
+### 3. Visualización 3D y AR
+![threejs_scene](docs/gifs/parte_c.gif)
 
-### 4. Simulación de Bioseñales (EEG)
-Modificación de la rugosidad y modo "wireframe" de los objetos 3D basada en valores simulados de ondas cerebrales (Alpha/Beta).
-![Simulación EEG](docs/gifs/eeg_simulation.gif)
-*(Ubicación sugerida: `docs/gifs/eeg_simulation.gif`)*
 
-### 5. Entrenamiento: Convergencia del Modelo
-Visualización de las curvas de pérdida (Loss) y precisión (Accuracy) durante el entrenamiento del modelo de clasificación.
-![Curvas de Entrenamiento](docs/gifs/training_curves.gif)
-*(Ubicación sugerida: `docs/gifs/training_curves.gif`)*
-
-### 6. Interfaz AR (Realidad Aumentada)
-Proyección de elementos virtuales sobre marcadores físicos utilizando el módulo de cámara web.
-![Modo AR](docs/gifs/ar_mode.gif)
-*(Ubicación sugerida: `docs/gifs/ar_mode.gif`)*
+### 4. Optimización Visual
+![parte f](docs/gifs/parte_f.gif)
 
 ---
 
@@ -134,7 +119,7 @@ npm install
 
 ```bash
 # Desde la raíz del proyecto
-python run_app.py
+python main.py
 ```
 
 **Para la Interfaz Web 3D:**
