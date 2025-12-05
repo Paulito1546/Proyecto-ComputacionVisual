@@ -24,6 +24,20 @@ Esta tabla certifica la correspondencia entre los requisitos del `Taller_4.md` y
 
 ---
 
+## 📚 Documentación Técnica Detallada
+
+Para profundizar en los detalles técnicos de cada módulo, consulte los siguientes informes especializados ubicados en la carpeta `/docs`:
+
+* **🧠 [Informe de Deep Learning](REPORT_DEEP_LEARNING.md)**:
+    Detalles sobre el entrenamiento de CNN, comparación ResNet50 vs MobileNetV2, métricas de rendimiento y gráficas de pérdida/precisión.
+* **✋ [Manual de Interacción Multimodal](MANUAL_MULTIMODAL.md)**:
+    Guía de uso para el prototipo de control por gestos, voz y simulación EEG.
+* **📱 [Guía de Realidad Aumentada](MANUAL_AR_MARKERS.md)**:
+    Instrucciones para imprimir y utilizar los marcadores AR (Hiro) para visualizar los objetos 3D.
+* **🔌 [Guía de Integración Técnica](GUIDE_INTEGRATION.md)**:
+    Detalles sobre puertos, configuración de WebSocket y herramientas para grabación de evidencias.
+
+
 ## 📸 Galería de Evidencias (GIFs)
 
 Se presenta la demostración visual de cada módulo.
