@@ -32,7 +32,7 @@ El trabajo se realizó en Google Colab, utilizando PyTorch, e incluyó:
 ## Dataset
 ### Intel Image Classification (Kaggle)
 
-![Dataset Example](images/intel-image.jpg)
+![Dataset Example](../python/training/images/intel-image.jpg)
 
 ## Estructura del Notebook
 
