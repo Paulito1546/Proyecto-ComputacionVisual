@@ -30,18 +30,18 @@ Se presenta la demostración visual de cada módulo.
 
 ### 1. Percepción y Visión     
 El sistema procesa el flujo de video, aplicando máscaras de segmentación y bounding boxes con alta precisión.
-![parte A y F](.../data/gifs/parte_a.gif)
+![parte A y F](../data/gifs/parte_a.gif)
 
 ### 2. Control de Escena 3D mediante Gestos
 Uso de MediaPipe para rotar y manipular la geometría 3D usando gestos de la mano (Puño cerrado para pausar, Mano abierta para rotar).
-![Gestos MediaPipe](.../data/gifs/interaction_multimodal.gif)
+![Gestos MediaPipe](../data/gifs/interaction_multimodal.gif)
 
 ### 3. Visualización 3D y AR
-![threejs_scene](.../data/gifs/parte_c.gif)
+![threejs_scene](../data/gifs/parte_c.gif)
 
 
 ### 4. Optimización Visual
-![parte f](.../data/gifs/parte_f.gif)
+![parte f](../data/gifs/parte_f.gif)
 
 ---
 
