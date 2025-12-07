@@ -1,4 +1,4 @@
-# Semana 9 - Interfaz Completa de Análisis Postural
+# Semana 13 - Interfaz Completa de Análisis Postural
 
 ## Descripción General
 
@@ -43,23 +43,18 @@ Python 3.8+
 ### Paso 1: Instalar dependencias
 
 ```bash
+
 # Dependencias de pip
-pip install opencv-python numpy pandas matplotlib seaborn scipy mediapipe reportlab Pillow
+chmod u+x setup.sh
+./setup.sh
 
-# En Ubuntu/Linux - tkinter es un package del sistema
-sudo apt-get install python3-tk
-
-# En macOS (usando Homebrew)
-brew install python-tk
-
-# En Windows - tkinter viene incluido con Python
 ```
 
 ### Paso 2: Descargar archivos
 
 Asegúrate de tener en el mismo directorio:
 - `pipeline_semana8.py` - Module del pipeline de análisis
-- `semana_9_app.py` - Interfaz gráfica principal
+- `semana_13_app.py` - Interfaz gráfica principal
 - Video(s) para analizar
 
 ---
@@ -76,7 +71,7 @@ python test_setup.py
 Verificar que todas la dependencias son descargadas. 
 
 ```bash
-python semana_9_app.py
+python semana_13_app.py
 ```
 
 Se abrirá la ventana principal de la interfaz.
