@@ -1,0 +1,195 @@
+frame,articulacion,severidad,tipo,mensaje
+10,rodilla,MEDIA,DIF_MEDIA,Dif media 30.5° > 20°
+10,rodilla,MEDIA,SIM_INDICE,Índ sim 25.3% > 25%
+10,rodilla,MEDIA,CORR_BAJA,Corr -0.48 < -0.3
+10,tobillo,MEDIA,DIF_MEDIA,Dif media 16.3° > 15°
+10,tobillo,MEDIA,SIM_INDICE,Índ sim 24.2% > 20%
+10,tobillo,MEDIA,CORR_BAJA,Corr -0.33 < -0.2
+10,cadera,MEDIA,DIF_MEDIA,Dif media 24.2° > 18°
+10,codo,ALTA,CORR_BAJA,Corr -0.81 < -0.4
+10,muneca,MEDIA,DIF_MEDIA,Dif media 63.6° > 50°
+10,muneca,MEDIA,SIM_INDICE,Índ sim 48.9% > 40%
+10,hombro,MEDIA,DIF_MEDIA,Dif media 50.4° > 50°
+10,hombro,ALTA,SIM_INDICE,Índ sim 92.0% > 45%
+20,rodilla,MEDIA,DIF_MEDIA,Dif media 28.5° > 20°
+20,tobillo,MEDIA,SIM_INDICE,Índ sim 21.5% > 20%
+20,cadera,MEDIA,DIF_MEDIA,Dif media 20.2° > 18°
+20,codo,ALTA,CORR_BAJA,Corr -0.87 < -0.4
+20,hombro,MEDIA,SIM_INDICE,Índ sim 80.1% > 45%
+30,rodilla,MEDIA,DIF_MEDIA,Dif media 29.4° > 20°
+30,tobillo,MEDIA,SIM_INDICE,Índ sim 20.0% > 20%
+30,codo,MEDIA,CORR_BAJA,Corr -0.79 < -0.4
+30,muneca,MEDIA,DIF_MEDIA,Dif media 55.2° > 50°
+30,muneca,MEDIA,SIM_INDICE,Índ sim 42.1% > 40%
+30,hombro,MEDIA,SIM_INDICE,Índ sim 83.9% > 45%
+40,rodilla,MEDIA,DIF_MEDIA,Dif media 28.5° > 20°
+40,codo,ALTA,CORR_BAJA,Corr -0.86 < -0.4
+40,muneca,MEDIA,DIF_MEDIA,Dif media 56.2° > 50°
+40,muneca,MEDIA,SIM_INDICE,Índ sim 42.7% > 40%
+40,hombro,MEDIA,SIM_INDICE,Índ sim 78.0% > 45%
+50,rodilla,MEDIA,DIF_MEDIA,Dif media 27.3° > 20°
+50,codo,ALTA,CORR_BAJA,Corr -0.83 < -0.4
+50,muneca,MEDIA,DIF_MEDIA,Dif media 67.3° > 50°
+50,muneca,MEDIA,SIM_INDICE,Índ sim 51.7% > 40%
+50,hombro,MEDIA,SIM_INDICE,Índ sim 65.0% > 45%
+60,rodilla,MEDIA,DIF_MEDIA,Dif media 23.1° > 20°
+60,codo,MEDIA,CORR_BAJA,Corr -0.51 < -0.4
+60,muneca,MEDIA,DIF_MEDIA,Dif media 61.2° > 50°
+60,muneca,MEDIA,SIM_INDICE,Índ sim 46.3% > 40%
+60,hombro,MEDIA,SIM_INDICE,Índ sim 52.0% > 45%
+70,rodilla,MEDIA,DIF_MEDIA,Dif media 20.4° > 20°
+70,codo,MEDIA,CORR_BAJA,Corr -0.48 < -0.4
+70,muneca,MEDIA,DIF_MEDIA,Dif media 60.7° > 50°
+70,muneca,MEDIA,SIM_INDICE,Índ sim 45.7% > 40%
+80,codo,MEDIA,CORR_BAJA,Corr -0.61 < -0.4
+80,muneca,MEDIA,DIF_MEDIA,Dif media 55.8° > 50°
+80,muneca,MEDIA,SIM_INDICE,Índ sim 41.2% > 40%
+90,rodilla,MEDIA,DIF_MEDIA,Dif media 20.0° > 20°
+90,codo,MEDIA,CORR_BAJA,Corr -0.70 < -0.4
+90,muneca,MEDIA,DIF_MEDIA,Dif media 58.7° > 50°
+90,muneca,MEDIA,SIM_INDICE,Índ sim 43.2% > 40%
+100,codo,MEDIA,CORR_BAJA,Corr -0.59 < -0.4
+100,muneca,MEDIA,DIF_MEDIA,Dif media 56.3° > 50°
+100,muneca,MEDIA,SIM_INDICE,Índ sim 41.6% > 40%
+110,muneca,MEDIA,DIF_MEDIA,Dif media 62.8° > 50°
+110,muneca,MEDIA,SIM_INDICE,Índ sim 48.5% > 40%
+120,rodilla,MEDIA,DIF_MEDIA,Dif media 22.6° > 20°
+120,tobillo,MEDIA,SIM_INDICE,Índ sim 20.0% > 20%
+120,muneca,MEDIA,DIF_MEDIA,Dif media 61.3° > 50°
+120,muneca,MEDIA,SIM_INDICE,Índ sim 48.5% > 40%
+130,rodilla,MEDIA,DIF_MEDIA,Dif media 25.5° > 20°
+130,muneca,MEDIA,DIF_MEDIA,Dif media 61.3° > 50°
+130,muneca,MEDIA,SIM_INDICE,Índ sim 48.7% > 40%
+140,rodilla,MEDIA,DIF_MEDIA,Dif media 20.2° > 20°
+140,codo,MEDIA,CORR_BAJA,Corr -0.55 < -0.4
+140,muneca,MEDIA,DIF_MEDIA,Dif media 55.3° > 50°
+140,muneca,MEDIA,SIM_INDICE,Índ sim 42.6% > 40%
+150,codo,MEDIA,CORR_BAJA,Corr -0.59 < -0.4
+150,muneca,MEDIA,DIF_MEDIA,Dif media 52.5° > 50°
+160,cadera,MEDIA,CORR_BAJA,Corr -0.31 < -0.3
+160,muneca,MEDIA,DIF_MEDIA,Dif media 52.5° > 50°
+160,hombro,MEDIA,SIM_INDICE,Índ sim 55.5% > 45%
+160,hombro,MEDIA,CORR_BAJA,Corr -0.35 < -0.3
+170,hombro,MEDIA,SIM_INDICE,Índ sim 62.2% > 45%
+180,codo,MEDIA,CORR_BAJA,Corr -0.41 < -0.4
+180,hombro,MEDIA,SIM_INDICE,Índ sim 52.9% > 45%
+190,rodilla,MEDIA,DIF_MEDIA,Dif media 25.8° > 20°
+190,cadera,MEDIA,DIF_MEDIA,Dif media 29.7° > 18°
+190,cadera,MEDIA,SIM_INDICE,Índ sim 23.9% > 22%
+190,cadera,MEDIA,CORR_BAJA,Corr -0.33 < -0.3
+190,codo,MEDIA,SIM_INDICE,Índ sim 51.2% > 40%
+190,codo,MEDIA,CORR_BAJA,Corr -0.61 < -0.4
+190,hombro,MEDIA,SIM_INDICE,Índ sim 68.7% > 45%
+200,rodilla,MEDIA,DIF_MEDIA,Dif media 35.3° > 20°
+200,rodilla,MEDIA,SIM_INDICE,Índ sim 28.9% > 25%
+200,tobillo,MEDIA,SIM_INDICE,Índ sim 22.2% > 20%
+200,cadera,ALTA,DIF_MEDIA,Dif media 42.3° > 18°
+200,cadera,MEDIA,SIM_INDICE,Índ sim 32.8% > 22%
+200,cadera,MEDIA,CORR_BAJA,Corr -0.31 < -0.3
+200,codo,MEDIA,DIF_MEDIA,Dif media 61.6° > 50°
+200,codo,MEDIA,SIM_INDICE,Índ sim 60.0% > 40%
+200,hombro,MEDIA,DIF_MEDIA,Dif media 55.3° > 50°
+200,hombro,ALTA,SIM_INDICE,Índ sim 108.0% > 45%
+200,hombro,MEDIA,CORR_BAJA,Corr -0.54 < -0.3
+210,rodilla,MEDIA,DIF_MEDIA,Dif media 39.1° > 20°
+210,rodilla,MEDIA,SIM_INDICE,Índ sim 31.6% > 25%
+210,tobillo,MEDIA,DIF_MEDIA,Dif media 16.6° > 15°
+210,tobillo,MEDIA,SIM_INDICE,Índ sim 27.2% > 20%
+210,cadera,ALTA,DIF_MEDIA,Dif media 45.1° > 18°
+210,cadera,MEDIA,SIM_INDICE,Índ sim 34.8% > 22%
+210,codo,MEDIA,DIF_MEDIA,Dif media 67.3° > 50°
+210,codo,MEDIA,SIM_INDICE,Índ sim 65.0% > 40%
+210,codo,MEDIA,CORR_BAJA,Corr -0.42 < -0.4
+210,hombro,MEDIA,DIF_MEDIA,Dif media 74.5° > 50°
+210,hombro,ALTA,SIM_INDICE,Índ sim 133.0% > 45%
+210,hombro,ALTA,CORR_BAJA,Corr -0.65 < -0.3
+220,rodilla,MEDIA,DIF_MEDIA,Dif media 30.3° > 20°
+220,tobillo,MEDIA,SIM_INDICE,Índ sim 23.0% > 20%
+220,tobillo,MEDIA,CORR_BAJA,Corr -0.20 < -0.2
+220,cadera,MEDIA,DIF_MEDIA,Dif media 32.1° > 18°
+220,cadera,MEDIA,SIM_INDICE,Índ sim 23.1% > 22%
+220,codo,MEDIA,DIF_MEDIA,Dif media 66.1° > 50°
+220,codo,MEDIA,SIM_INDICE,Índ sim 61.5% > 40%
+220,hombro,MEDIA,DIF_MEDIA,Dif media 77.3° > 50°
+220,hombro,ALTA,SIM_INDICE,Índ sim 134.8% > 45%
+220,hombro,ALTA,CORR_BAJA,Corr -0.65 < -0.3
+230,rodilla,MEDIA,DIF_MEDIA,Dif media 29.4° > 20°
+230,tobillo,MEDIA,SIM_INDICE,Índ sim 20.9% > 20%
+230,cadera,MEDIA,DIF_MEDIA,Dif media 32.8° > 18°
+230,cadera,MEDIA,SIM_INDICE,Índ sim 24.0% > 22%
+230,codo,MEDIA,DIF_MEDIA,Dif media 69.9° > 50°
+230,codo,MEDIA,SIM_INDICE,Índ sim 62.9% > 40%
+230,muneca,MEDIA,CORR_BAJA,Corr -0.65 < -0.4
+230,hombro,MEDIA,DIF_MEDIA,Dif media 74.4° > 50°
+230,hombro,ALTA,SIM_INDICE,Índ sim 126.9% > 45%
+230,hombro,MEDIA,CORR_BAJA,Corr -0.52 < -0.3
+240,rodilla,MEDIA,DIF_MEDIA,Dif media 30.7° > 20°
+240,tobillo,MEDIA,SIM_INDICE,Índ sim 21.0% > 20%
+240,cadera,ALTA,DIF_MEDIA,Dif media 39.6° > 18°
+240,cadera,MEDIA,SIM_INDICE,Índ sim 29.1% > 22%
+240,codo,MEDIA,DIF_MEDIA,Dif media 67.2° > 50°
+240,codo,MEDIA,SIM_INDICE,Índ sim 60.9% > 40%
+240,hombro,MEDIA,DIF_MEDIA,Dif media 63.4° > 50°
+240,hombro,ALTA,SIM_INDICE,Índ sim 106.1% > 45%
+240,hombro,ALTA,CORR_BAJA,Corr -0.62 < -0.3
+250,rodilla,MEDIA,DIF_MEDIA,Dif media 32.4° > 20°
+250,rodilla,MEDIA,SIM_INDICE,Índ sim 25.3% > 25%
+250,cadera,ALTA,DIF_MEDIA,Dif media 45.1° > 18°
+250,cadera,MEDIA,SIM_INDICE,Índ sim 32.9% > 22%
+250,codo,MEDIA,DIF_MEDIA,Dif media 58.0° > 50°
+250,codo,MEDIA,SIM_INDICE,Índ sim 52.5% > 40%
+250,hombro,MEDIA,DIF_MEDIA,Dif media 62.5° > 50°
+250,hombro,ALTA,SIM_INDICE,Índ sim 101.8% > 45%
+250,hombro,ALTA,CORR_BAJA,Corr -0.62 < -0.3
+260,rodilla,MEDIA,DIF_MEDIA,Dif media 27.6° > 20°
+260,cadera,ALTA,DIF_MEDIA,Dif media 37.2° > 18°
+260,cadera,MEDIA,SIM_INDICE,Índ sim 27.1% > 22%
+260,codo,MEDIA,SIM_INDICE,Índ sim 46.0% > 40%
+260,hombro,MEDIA,DIF_MEDIA,Dif media 60.2° > 50°
+260,hombro,ALTA,SIM_INDICE,Índ sim 96.0% > 45%
+260,hombro,ALTA,CORR_BAJA,Corr -0.69 < -0.3
+270,rodilla,MEDIA,DIF_MEDIA,Dif media 24.2° > 20°
+270,tobillo,MEDIA,SIM_INDICE,Índ sim 20.4% > 20%
+270,cadera,ALTA,DIF_MEDIA,Dif media 37.0° > 18°
+270,cadera,MEDIA,SIM_INDICE,Índ sim 27.0% > 22%
+270,codo,MEDIA,SIM_INDICE,Índ sim 41.5% > 40%
+270,hombro,MEDIA,DIF_MEDIA,Dif media 62.0° > 50°
+270,hombro,ALTA,SIM_INDICE,Índ sim 98.0% > 45%
+270,hombro,ALTA,CORR_BAJA,Corr -0.61 < -0.3
+280,rodilla,MEDIA,DIF_MEDIA,Dif media 22.7° > 20°
+280,tobillo,MEDIA,SIM_INDICE,Índ sim 20.7% > 20%
+280,cadera,MEDIA,DIF_MEDIA,Dif media 33.2° > 18°
+280,cadera,MEDIA,SIM_INDICE,Índ sim 23.9% > 22%
+280,hombro,MEDIA,DIF_MEDIA,Dif media 61.3° > 50°
+280,hombro,ALTA,SIM_INDICE,Índ sim 97.0% > 45%
+280,hombro,ALTA,CORR_BAJA,Corr -0.69 < -0.3
+290,rodilla,MEDIA,DIF_MEDIA,Dif media 21.8° > 20°
+290,cadera,MEDIA,DIF_MEDIA,Dif media 30.7° > 18°
+290,hombro,MEDIA,DIF_MEDIA,Dif media 57.1° > 50°
+290,hombro,ALTA,SIM_INDICE,Índ sim 92.1% > 45%
+290,hombro,ALTA,CORR_BAJA,Corr -0.66 < -0.3
+300,rodilla,MEDIA,DIF_MEDIA,Dif media 24.8° > 20°
+300,cadera,MEDIA,DIF_MEDIA,Dif media 25.5° > 18°
+300,hombro,MEDIA,DIF_MEDIA,Dif media 62.3° > 50°
+300,hombro,ALTA,SIM_INDICE,Índ sim 99.8% > 45%
+300,hombro,MEDIA,CORR_BAJA,Corr -0.44 < -0.3
+310,rodilla,MEDIA,DIF_MEDIA,Dif media 24.7° > 20°
+310,cadera,MEDIA,DIF_MEDIA,Dif media 24.4° > 18°
+310,hombro,MEDIA,DIF_MEDIA,Dif media 56.3° > 50°
+310,hombro,MEDIA,SIM_INDICE,Índ sim 89.7% > 45%
+310,hombro,MEDIA,CORR_BAJA,Corr -0.45 < -0.3
+320,rodilla,MEDIA,DIF_MEDIA,Dif media 24.5° > 20°
+320,cadera,MEDIA,DIF_MEDIA,Dif media 23.4° > 18°
+320,hombro,MEDIA,DIF_MEDIA,Dif media 53.6° > 50°
+320,hombro,MEDIA,SIM_INDICE,Índ sim 83.5% > 45%
+320,hombro,MEDIA,CORR_BAJA,Corr -0.59 < -0.3
+330,rodilla,MEDIA,DIF_MEDIA,Dif media 23.3° > 20°
+330,cadera,MEDIA,DIF_MEDIA,Dif media 25.8° > 18°
+330,hombro,MEDIA,SIM_INDICE,Índ sim 74.8% > 45%
+330,hombro,ALTA,CORR_BAJA,Corr -0.69 < -0.3
+340,rodilla,MEDIA,DIF_MEDIA,Dif media 22.4° > 20°
+340,tobillo,MEDIA,SIM_INDICE,Índ sim 20.3% > 20%
+340,cadera,MEDIA,DIF_MEDIA,Dif media 22.9° > 18°
+340,cadera,MEDIA,CORR_BAJA,Corr -0.38 < -0.3
+340,hombro,MEDIA,SIM_INDICE,Índ sim 67.9% > 45%
+340,hombro,ALTA,CORR_BAJA,Corr -0.68 < -0.3
