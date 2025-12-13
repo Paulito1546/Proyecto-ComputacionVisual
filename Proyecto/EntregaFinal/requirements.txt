@@ -1,0 +1,26 @@
+# Postural Analysis System - Requirements
+# Install with: pip install -r requirements.txt
+
+# GUI Framework
+customtkinter>=5.2.0
+
+# Computer Vision
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+
+# Data Processing
+numpy>=1.26.0,<2.0.0
+pandas>=2.0.0
+scipy>=1.11.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Document Generation
+reportlab>=4.0.0
+Pillow>=10.0.0
+
+# AI Analysis
+google-generativeai>=0.3.0
+python-dotenv>=1.0.0

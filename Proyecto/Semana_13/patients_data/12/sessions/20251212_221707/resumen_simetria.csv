@@ -1,0 +1,7 @@
+Articulación,Diff Media (°),Diff Máx (°),Índice Sim (%),RMSE (°),Correlación,Umbral Diff,Umbral Sim,Estado
+Rodilla,16.25,34.12,10.54,17.63,0.077,20°,25%,✅ Normal
+Tobillo,11.07,29.36,11.76,13.76,0.788,15°,20%,✅ Normal
+Cadera,14.74,38.13,11.56,17.77,0.446,18°,22%,✅ Normal
+Codo,41.90,67.28,32.60,46.25,0.360,50°,40%,✅ Normal
+Muneca,25.26,58.51,17.25,29.22,-0.437,50°,40%,✅ Normal
+Hombro,25.31,75.74,45.95,31.11,-0.040,50°,45%,🟡 Leve
