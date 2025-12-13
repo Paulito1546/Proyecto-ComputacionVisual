@@ -43,9 +43,9 @@ El siguiente video muestra el sistema procesando una marcha y detectando asimetr
 
 ---
 
-## 🎯 Semana 13 - Versión Actual: Interfaz Gráfica Completa
+## 🎯 Entrega Final - Sistema Profesional con Inteligencia Artificial
 
-La versión actual del proyecto incluye una interfaz gráfica de usuario completa desarrollada con Tkinter que integra todo el pipeline de análisis.
+La versión final del proyecto es un sistema de análisis biomecánico que integra visión por computadora (MediaPipe) con inteligencia artificial (Google Gemini 2.5) para proporcionar evaluaciones fisioterapéuticas completas y automatizadas.
 
 ### ⭐ Características Principales
 
@@ -54,13 +54,30 @@ La versión actual del proyecto incluye una interfaz gráfica de usuario complet
 - Cargar pacientes existentes desde el historial
 - Guardar automáticamente todas las sesiones de análisis por paciente
 - Estructura organizada: `patients_data/{patient_id}/sessions/{timestamp}/`
+- Comparación entre múltiples sesiones para seguimiento de progreso
 
 **Análisis de Video**
-- Carga de videos en formato MP4
+- Carga de videos en formato MP4 con validación automática
 - Procesamiento frame por frame con MediaPipe Pose
 - Extracción automática de ángulos articulares bilaterales
-- Análisis de ventanas deslizantes para métricas de simetría
+- Análisis de ventanas deslizantes (30 frames, análisis cada 10)
 - Barra de progreso en tiempo real durante el análisis
+- Generación de video en cámara lenta (0.14x) para revisión detallada
+
+**Análisis con Inteligencia Artificial**
+- Integración con Google Gemini 2.5 para interpretación profesional
+- Evaluación automática con 8 secciones especializadas:
+  - Evaluación general del paciente
+  - Hallazgos principales detectados
+  - Análisis biomecánico detallado
+  - Posibles causas de las asimetrías
+  - Recomendaciones terapéuticas personalizadas
+  - Precauciones y contraindicaciones
+  - Plan de seguimiento sugerido
+  - Clasificación de riesgo (bajo/medio/alto)
+- Chat conversacional inteligente para consultas específicas
+- Contexto persistente del análisis durante la conversación
+- Historial de chat guardado por sesión
 
 **Detección de Asimetrías**
 - Cálculo de 4 métricas de simetría por articulación:
@@ -82,17 +99,20 @@ La versión actual del proyecto incluye una interfaz gráfica de usuario complet
   - Fondo translúcido para mejor legibilidad
 - Reproducción automática al finalizar el análisis
 
-**Reportes**
+**Reportes y Exportación**
 - `resumen_simetria.csv`: Tabla con métricas globales por articulación
   - Diferencia media y máxima (grados)
   - Índice de simetría promedio (%)
   - RMSE y correlación
   - Total de alertas detectadas
+  - Estado de cada articulación (Normal/Crítico)
 - `alertas_por_frame.csv`: Detalle de cada alerta con:
   - Frame exacto de ocurrencia
   - Articulación afectada
   - Tipo de métrica que generó la alerta
   - Severidad y valor medido
+- `output_alerts.mp4`: Video en cámara lenta con anotaciones visuales
+- `chat_history.json`: Historial completo de conversación con IA
 - Descarga directa desde la interfaz con un click
 
 **Historial y Comparaciones**
@@ -118,74 +138,119 @@ graph TD
     G -->|Alertas clasificadas| H[🎨 Renderizador de Video]
     F -->|Datos tabulares| I[📄 Generador de Reportes]
     
+    I -->|Métricas y alertas| K[🤖 Google Gemini AI]
+    K -->|Análisis profesional| L[💬 Chat Inteligente]
+    
     H -->|Video anotado| J[💾 Almacenamiento]
     I -->|CSV Reports| J
+    K -->|Análisis IA| J
+    L -->|Historial chat| J
     
     J -->|Archivos| C
     C -->|Historial| A
+    L -->|Respuestas| A
     
     style A fill:#4a90e2
     style D fill:#50c878
     style F fill:#ff6b6b
     style G fill:#ffd93d
+    style K fill:#9b59b6
+    style L fill:#e74c3c
     style J fill:#a78bfa
 ```
 
 ### Componentes Principales
 
-1. **Interfaz Gráfica (Tkinter)**: Gestión de usuarios, carga de videos y visualización
+1. **Interfaz Gráfica (CustomTkinter)**: GUI moderna con 3 paneles y 5 pestañas de resultados
 2. **MediaPipe Pose**: Extracción de 33 landmarks corporales en 3D
 3. **Calculador de Ángulos**: Determina ángulos de 6 articulaciones bilaterales
 4. **Analizador de Simetría**: Compara lados usando 4 métricas matemáticas
 5. **Sistema de Alertas**: Clasifica desviaciones en 3 niveles de severidad
-6. **Generador de Reportes**: Crea archivos CSV con métricas detalladas
-7. **Renderizador**: Anota video con esqueleto y alertas visuales
+6. **Google Gemini AI**: Interpretación profesional y análisis fisioterapéutico
+7. **Chat Inteligente**: Interfaz conversacional con contexto persistente
+8. **Generador de Reportes**: Crea archivos CSV con métricas detalladas
+9. **Renderizador**: Anota video con esqueleto y alertas visuales en cámara lenta
 
 ### 📁 Estructura de Archivos
 
 ```
-Semana_13/
-├── semana_13_app.py           # Interfaz gráfica principal
-├── pipeline_semana8.py         # Pipeline de análisis (backend)
-├── setup.sh                    # Script de instalación
-├── test_setup.py              # Verificación de dependencias
-├── README_Semana9.md          # Documentación detallada
-└── patients_data/             # Datos de pacientes
+EntregaFinal/
+├── main.py                     # Punto de entrada
+├── main_app.py                 # Aplicación principal
+├── config.py                   # Configuración centralizada
+├── requirements.txt            # Dependencias del proyecto
+├── .env.example                # Template para variables de entorno
+│
+├── Core Analysis/
+│   ├── pipeline_semana8.py     # Pipeline de análisis de video
+│   ├── analysis_worker.py      # Gestión de análisis en threads
+│   └── video_processor.py      # Procesamiento de videos
+│
+├── AI Integration/
+│   ├── gemini_analyzer.py      # Integración con Google Gemini
+│   └── api_key_manager.py      # Gestión segura de API keys
+│
+├── Data Management/
+│   └── patient_manager.py      # Gestión de pacientes y sesiones
+│
+├── User Interface/
+│   ├── ui_components.py        # Componentes reutilizables
+│   ├── chat_widget.py          # Interfaz de chat con IA
+│   └── dialogs.py              # Ventanas de diálogo
+│
+└── patients_data/              # Datos de pacientes (auto-generado)
     └── {patient_id}/
-        ├── metadata.json      # Info del paciente
+        ├── metadata.json       # Info del paciente
         └── sessions/
             └── {timestamp}/
-                ├── output_alerts.mp4
+                ├── session_metadata.json
                 ├── resumen_simetria.csv
-                └── alertas_por_frame.csv
+                ├── alertas_por_frame.csv
+                ├── output_alerts.mp4
+                └── chat_history.json
 ```
 
 ### 🔧 Instalación
 
 **Requisitos**
-- Python 3.8 o superior
+- Python 3.12 o superior
 - Sistema operativo: Windows/Linux/MacOS
+- API Key de Google Gemini ([obtener aquí](https://makersuite.google.com/app/apikey))
 
-**Dependencias**
+**Pasos de Instalación**
+
+1. **Crear entorno virtual**
 ```bash
-# Instalar todas las dependencias
-chmod u+x setup.sh
-./setup.sh
-
-# O manualmente
-pip install tkinter opencv-python mediapipe numpy pandas matplotlib seaborn Pillow
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# o
+venv\Scripts\activate  # Windows
 ```
 
-**Verificar instalación**
+2. **Instalar dependencias**
 ```bash
-python test_setup.py
+cd Proyecto/EntregaFinal
+pip install -r requirements.txt
+```
+
+3. **Configurar API Key**
+
+Crear archivo `.env` en `Proyecto/EntregaFinal/`:
+```env
+GEMINI_API_KEY=tu_api_key_aqui
+```
+
+4. **Verificar instalación**
+```bash
+python test_gemini_models.py
 ```
 
 ### 💻 Uso
 
 1. **Iniciar la aplicación**
 ```bash
-python semana_13_app.py
+cd Proyecto/EntregaFinal
+python main.py
 ```
 
 2. **Seleccionar o crear paciente**
@@ -195,16 +260,29 @@ python semana_13_app.py
 3. **Cargar video**
    - Click en "Cargar Video"
    - Seleccionar archivo MP4 de la marcha del paciente
+   - El sistema validará formato y codec automáticamente
 
 4. **Analizar**
    - Click en "Iniciar Análisis"
-   - Esperar a que termine el procesamiento (se muestra progreso)
-   - El video anotado se reproduce automáticamente
+   - Esperar a que termine el procesamiento (5-10 minutos)
+   - El sistema genera automáticamente:
+     - Video anotado en cámara lenta
+     - Reportes CSV con métricas
+     - Análisis profesional con IA
 
 5. **Revisar resultados**
-   - Ver video con alertas visuales
-   - Descargar reportes CSV con las métricas
-   - Consultar historial de sesiones anteriores
+   - **Pestaña Resumen**: Ver métricas globales por articulación
+   - **Pestaña Alertas**: Explorar alertas frame por frame
+   - **Pestaña Comparaciones**: Comparar con sesiones anteriores
+   - **Pestaña Análisis IA**: Leer evaluación profesional completa
+   - **Pestaña Chat**: Hacer preguntas específicas sobre el análisis
+
+6. **Interactuar con IA**
+   - Usar el chat para consultas como:
+     - "¿Qué ejercicios recomiendas para la cadera?"
+     - "¿Es grave la asimetría en la rodilla?"
+     - "Explica el análisis biomecánico"
+   - El contexto del análisis se mantiene durante la conversación
 
 ### Articulaciones Analizadas
 
@@ -273,8 +351,8 @@ El sistema analiza 6 pares de articulaciones bilaterales:
 - Diseño de flujo de usuario
 - Pruebas de integración con el pipeline
 
-### Semana 13 (Actual)
-- Interfaz gráfica completa y funcional
+### Semana 13
+- Interfaz gráfica completa y funcional con Tkinter
 - Gestión completa de pacientes con historial
 - Integración total del pipeline de análisis
 - Sistema de descarga de reportes
@@ -282,18 +360,32 @@ El sistema analiza 6 pares de articulaciones bilaterales:
 - Comparación entre sesiones del mismo paciente
 - Scripts de instalación y verificación
 
+### Entrega Final (Actual)
+- Migración a CustomTkinter para interfaz moderna
+- Integración completa con Google Gemini 2.5 para análisis profesional
+- Sistema de chat inteligente con contexto persistente
+- Arquitectura modular con separación de componentes
+- Procesamiento de video optimizado con cámara lenta
+- Análisis fisioterapéutico automatizado en 8 secciones
+- Gestión segura de API keys con variables de entorno
+- Validación avanzada de videos (formato, codec, resolución)
+- Comparación multi-sesión para seguimiento de progreso
+- Documentación técnica completa y profesional
+
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Python 3.8+**: Lenguaje de programación principal
-- **MediaPipe Pose**: Detección de puntos clave del cuerpo
+- **Python 3.12**: Lenguaje de programación principal
+- **MediaPipe Pose**: Detección de 33 puntos clave del cuerpo en 3D
+- **Google Gemini 2.5**: Inteligencia artificial para análisis fisioterapéutico
 - **OpenCV**: Procesamiento de video e imágenes
 - **NumPy**: Cálculos matemáticos y operaciones con arrays
 - **Pandas**: Manejo y análisis de datos tabulares
-- **Matplotlib/Seaborn**: Visualización de gráficas
-- **Tkinter**: Interfaz gráfica de usuario
+- **Matplotlib/Seaborn**: Visualización de gráficas y métricas
+- **CustomTkinter**: Interfaz gráfica moderna y profesional
 - **Pillow**: Procesamiento de imágenes para la GUI
+- **Python-dotenv**: Gestión de variables de entorno
 
 ---
 
